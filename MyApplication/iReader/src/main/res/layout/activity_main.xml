@@ -35,5 +35,27 @@
             android:text="Next" 
             android:onClick="nextPageBtn"
             />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Night"
+            android:onClick="record"
+            android:id="@+id/start"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Share"
+            android:onClick="record"
+            android:id="@+id/stop"
+            android:enabled="false"
+            />
+        <SurfaceView
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:id="@+id/mySurfaceView"
+            />
     </LinearLayout>
 </LinearLayout>

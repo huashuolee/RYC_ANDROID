@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Users/lihuashx/AndroidStudioProjects/MyApplication/andriodDream/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="transparent_background">#000000</color>
+    <!-- From: file:/C:/Users/lihuashx/AndroidStudioProjects/MyApplication/andriodDream/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_8">4dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/C:/Users/lihuashx/AndroidStudioProjects/MyApplication/andriodDream/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">AndriodDream</string>
+    <string name="hello_world">Hello world!</string>
+    <!-- From: file:/C:/Users/lihuashx/AndroidStudioProjects/MyApplication/andriodDream/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="LodingDialog" parent="@android:style/Theme.Holo.Dialog">  
+	    
+	<item name="android:background">#00000000</item> <!-- 设置自定义布局的背景透明 -->
+	<item name="android:windowBackground">@android:color/transparent</item>  <!-- 设置window背景透明，也就是去边框 -->
+         <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+    </style>
+    <style name="ProgressBar_Mini" parent="@android:style/Widget.ProgressBar.Horizontal">  
+       <item name="android:maxHeight">50dip</item>  
+       <item name="android:minHeight">8dip</item>  
+       <item name="android:indeterminateOnly">false</item>  
+       <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>  
+       <item name="android:progressDrawable">@drawable/progressbar_mini</item>  
+   </style>
+</resources>

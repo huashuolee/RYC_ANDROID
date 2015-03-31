@@ -88,15 +88,18 @@ public class MainActivity extends Activity {
 
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            Configuration mConfiguration = getResources().getConfiguration();
+/*            Configuration mConfiguration = getResources().getConfiguration();
             int ori = mConfiguration.orientation;
             if (ori == Configuration.ORIENTATION_LANDSCAPE){
                 //mCamera.stopPreview();
+                Log.e(TAG, ori+"");
                 mCamera.setDisplayOrientation(0);
             }else if (ori == Configuration.ORIENTATION_PORTRAIT){
                 //mCamera.stopPreview();
                 mCamera.setDisplayOrientation(90);
-            }
+                Log.e(TAG, ori+"");
+            }*/
+            mCamera.setDisplayOrientation(90);//设置preview 90度　转
             try {
                 mCamera.setPreviewDisplay(mHolder);
             } catch (IOException e) {
@@ -107,7 +110,7 @@ public class MainActivity extends Activity {
 
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
-            mCamera.startPreview();
+            mCamera.stopPreview();
             mCamera.release();
 
         }
@@ -131,7 +134,8 @@ public class MainActivity extends Activity {
         try {
 
             mCamera.unlock();
-            File videofile = new File(Environment.getExternalStorageDirectory() + "/test/", System.currentTimeMillis() + ".mp4");
+            //File videofile = new File(Environment.getExternalStorageDirectory() + "/test/", System.currentTimeMillis() + ".mp4");
+            File videofile = new File("/sdcard/test/", System.currentTimeMillis() + ".mp4");
             mediaRecorder = new MediaRecorder();
             mediaRecorder.setCamera(mCamera);
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -139,7 +143,7 @@ public class MainActivity extends Activity {
 
             mediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_720P));
             mediaRecorder.setOutputFile(videofile.getAbsolutePath());
-            mediaRecorder.setOrientationHint(90);
+            mediaRecorder.setOrientationHint(90);//不改变preview,只对录下来的是视频起作用.
             Log.e(TAG,"SET 15");
             //mediaRecorder.setVideoFrameRate(15);
 
@@ -150,7 +154,6 @@ public class MainActivity extends Activity {
             stopButton.setVisibility(View.VISIBLE);
             captureButton.setVisibility(View.GONE);
             Log.e(TAG,"START RECORDING");
-
             stopButton.setEnabled(true);
         }catch (Exception e){
             Log.e("huashuo","can't record");
@@ -177,7 +180,7 @@ public class MainActivity extends Activity {
     private class takejpeg implements PictureCallback{
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-            File jpgfile = new File(Environment.getExternalStorageDirectory()+"/test", System.currentTimeMillis()+".jpg");
+            File jpgfile = new File("/sdcard//test", System.currentTimeMillis()+".jpg");
             try {
             FileOutputStream out = new FileOutputStream(jpgfile);
             out.write(data);
