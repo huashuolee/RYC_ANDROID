@@ -3,6 +3,7 @@ package huashuo.learning_bitmap;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.provider.Settings;
@@ -82,8 +83,13 @@ public class MainActivity extends ActionBarActivity {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
+                //旋转90
+                Matrix matrix = new Matrix();
+                matrix.setRotate(90);
+                bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
                 bmp.compress(Bitmap.CompressFormat.JPEG,80,out);
                 iv.setImageBitmap(bmp);
+                mCamera.startPreview();
             }
         }
     }
