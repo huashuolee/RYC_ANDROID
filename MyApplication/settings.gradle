@@ -1,4 +1,4 @@
-include ':app', ':actionbar', ':camera.huashuo', ':camera2.huashuo', ':record', ':settingdaemo', ':Browser', ':getmac', ':learning_bitmap'
+include ':app', ':actionbar', ':camera.huashuo', ':camera2.huashuo', ':record', ':settingdaemo', ':Browser', ':getmac', ':learning_bitmap', ':readtxt1'
 include ':photoIntentActivity'
 include ':camTestActivity'
 include ':iReader'

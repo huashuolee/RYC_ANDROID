@@ -1,0 +1,8 @@
+
+中国 中央 中共 
+D0i3
+
+/data/socwatch/socwatch  -f nc-dstate -t 30 -o /data/vp8_encode -c /data/socwatch/SOCWatchConfig.txt
+D0i3
+
+/data/socwatch/socwatch  -f nc-dstate -t 30 -o /data/vp8_encode -c /data/socwatch/SOCWatchConfig.txt

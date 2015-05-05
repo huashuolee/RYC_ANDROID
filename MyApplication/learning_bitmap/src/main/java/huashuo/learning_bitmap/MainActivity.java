@@ -87,7 +87,7 @@ public class MainActivity extends ActionBarActivity {
                 Matrix matrix = new Matrix();
                 matrix.setRotate(90);
                 bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
-                bmp.compress(Bitmap.CompressFormat.JPEG,80,out);
+                bmp.compress(Bitmap.CompressFormat.JPEG,100,out);
                 iv.setImageBitmap(bmp);
                 mCamera.startPreview();
             }

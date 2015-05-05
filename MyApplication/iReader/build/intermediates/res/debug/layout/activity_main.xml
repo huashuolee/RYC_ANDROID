@@ -8,6 +8,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context=".MainActivity" >
+    <SurfaceView
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/mySurfaceView"
+        />
 
     <com.gota.sr.ReadView
         android:id="@+id/read_view"
@@ -25,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Preview" 
+            android:text="Prev"
             android:onClick="previewPageBtn"
             />
         <Button
@@ -52,11 +57,7 @@
             android:id="@+id/stop"
             android:enabled="false"
             />
-        <SurfaceView
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            android:id="@+id/mySurfaceView"
-            />
+
     </LinearLayout>
 </LinearLayout>
 <!-- From: file:/C:/Users/lihuashx/AndroidStudioProjects/MyApplication/iReader/src/main/res/layout/activity_main.xml -->

@@ -1,0 +1,37 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        32eb013b com.gota.sr/.MainActivity
+
+Key Set Manager:
+  [com.gota.sr]
+      Signing KeySets: 33
+
+Packages:
+  Package [com.gota.sr] (3711b058):
+    userId=10088 gids=[1028, 1015]
+    pkg=Package{125315b1 com.gota.sr}
+    codePath=/data/app/com.gota.sr-2
+    resourcePath=/data/app/com.gota.sr-2
+    legacyNativeLibraryDir=/data/app/com.gota.sr-2/lib
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    versionCode=1 targetSdk=17
+    versionName=1.0
+    splits=[base]
+    applicationInfo=ApplicationInfo{15e25a96 com.gota.sr}
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    dataDir=/data/data/com.gota.sr
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2015-05-05 08:14:14
+    firstInstallTime=2015-05-05 07:58:12
+    lastUpdateTime=2015-05-05 08:14:14
+    signatures=PackageSignatures{2efe7617 [371d7a04]}
+    permissionsFixed=true haveGids=true installStatus=1
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    User 0:  installed=true hidden=false stopped=false notLaunched=false enabled=0
+    grantedPermissions:
+      android.permission.READ_EXTERNAL_STORAGE
+      android.permission.CAMERA
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.RECORD_AUDIO

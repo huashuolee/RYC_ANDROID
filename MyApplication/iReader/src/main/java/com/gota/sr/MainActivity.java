@@ -2,20 +2,19 @@ package com.gota.sr;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -58,7 +57,6 @@ public class MainActivity extends Activity {
 	}
 
 
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     private Camera safeOpen(int id){
         try {
             if (mCamera != null) {
@@ -144,6 +142,7 @@ public class MainActivity extends Activity {
             mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
             mediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_480P));
             mediaRecorder.setOutputFile(videofile.getAbsolutePath());
+            mediaRecorder.setOrientationHint(90);
             mediaRecorder.prepare();
             mediaRecorder.start();
             Log.e(TAG,"START RECORDING");
@@ -170,6 +169,7 @@ public class MainActivity extends Activity {
 		AssetManager assets = getAssets();
 		try {
 			InputStream in = assets.open("documents/The Golden Compass.txt");
+            //InputStream in = new FileInputStream(new File("/sdcard/a.txt"));
 			Charset charset = CharsetDetector.detect(in);
 			reader = new BufferedReader(new InputStreamReader(in, charset));
 			reader.read(buffer);
@@ -190,8 +190,15 @@ public class MainActivity extends Activity {
 	 * 上一页按钮
 	 */
 	public void previewPageBtn(View view) {
-		
-	}
+        try {
+            position -= readView.getCharNum();
+            loadPage(position);
+            readView.resize();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 	
 	/**
 	 * 下一页按钮
