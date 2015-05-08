@@ -13,61 +13,57 @@ ADDED from AndroidManifest.xml:2:1
 		ADDED from AndroidManifest.xml:4:5
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
-	android:installLocation
-		ADDED from AndroidManifest.xml:6:5
 uses-permission#android.permission.RECORD_AUDIO
+ADDED from AndroidManifest.xml:6:5
+	android:name
+		ADDED from AndroidManifest.xml:6:22
+uses-permission#android.permission.CAMERA
 ADDED from AndroidManifest.xml:7:5
 	android:name
 		ADDED from AndroidManifest.xml:7:22
-uses-permission#android.permission.CAMERA
+uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
 ADDED from AndroidManifest.xml:8:5
 	android:name
 		ADDED from AndroidManifest.xml:8:22
-uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 ADDED from AndroidManifest.xml:9:5
 	android:name
 		ADDED from AndroidManifest.xml:9:22
-uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+uses-feature#android.hardware.camera.autofocus
 ADDED from AndroidManifest.xml:10:5
 	android:name
-		ADDED from AndroidManifest.xml:10:22
-uses-feature#android.hardware.camera.autofocus
+		ADDED from AndroidManifest.xml:10:19
+application
 ADDED from AndroidManifest.xml:11:5
-	android:name
-		ADDED from AndroidManifest.xml:11:19
-uses-sdk
-ADDED from AndroidManifest.xml:12:5
-	android:targetSdkVersion
+	android:label
 		ADDED from AndroidManifest.xml:14:9
+	android:allowBackup
+		ADDED from AndroidManifest.xml:12:9
+	android:icon
+		ADDED from AndroidManifest.xml:13:9
+	android:theme
+		ADDED from AndroidManifest.xml:15:9
+activity#com.gota.sr.MainActivity
+ADDED from AndroidManifest.xml:16:9
+	android:label
+		ADDED from AndroidManifest.xml:18:13
+	android:name
+		ADDED from AndroidManifest.xml:17:13
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:19:13
+action#android.intent.action.MAIN
+ADDED from AndroidManifest.xml:20:17
+	android:name
+		ADDED from AndroidManifest.xml:20:25
+category#android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:22:17
+	android:name
+		ADDED from AndroidManifest.xml:22:27
+uses-sdk
+INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
+	android:targetSdkVersion
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
 	android:minSdkVersion
-		ADDED from AndroidManifest.xml:13:9
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
-application
-ADDED from AndroidManifest.xml:16:5
-	android:label
-		ADDED from AndroidManifest.xml:19:9
-	android:allowBackup
-		ADDED from AndroidManifest.xml:17:9
-	android:icon
-		ADDED from AndroidManifest.xml:18:9
-	android:theme
-		ADDED from AndroidManifest.xml:20:9
-activity#com.gota.sr.MainActivity
-ADDED from AndroidManifest.xml:21:9
-	android:label
-		ADDED from AndroidManifest.xml:23:13
-	android:name
-		ADDED from AndroidManifest.xml:22:13
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:24:13
-action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:25:17
-	android:name
-		ADDED from AndroidManifest.xml:25:25
-category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:27:17
-	android:name
-		ADDED from AndroidManifest.xml:27:27

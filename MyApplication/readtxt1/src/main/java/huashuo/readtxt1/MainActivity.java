@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,7 +17,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.io.UnsupportedEncodingException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.nio.Buffer;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -30,7 +35,13 @@ public class MainActivity extends ActionBarActivity {
         Button button = (Button)findViewById(R.id.Button);
         TextView myText = (TextView)findViewById(R.id.mytextview);
 
-/*        InputStream inputStream = getResources().openRawResource(R.raw.a);
+        button.setOnClickListener(new next());
+
+
+
+/*
+        读取包内的txt
+        InputStream inputStream = getResources().openRawResource(R.raw.a);
         InputStreamReader inputStreamReader = null;
         try {
             inputStreamReader = new InputStreamReader(inputStream, "gbk");
@@ -50,23 +61,27 @@ public class MainActivity extends ActionBarActivity {
         }
         myText.setText(sb.toString());*/
 
-        File file = new File("/sdcard/a.txt");
+
+//下面是读取sdcard里的文件
+
+/*        File file = new File("/sdcard/a.txt");
         Log.e(TAG,"file");
         try {
-            Log.e(TAG,"BEFORE IS");
-            InputStream ins  = new FileInputStream(file);
-            Log.e(TAG,"is");
+            FileInputStream ins  = new FileInputStream(file);
             InputStreamReader sb = new InputStreamReader(ins,"gbk");
-            Log.e(TAG,"sb");
             BufferedReader br = new BufferedReader(sb);
-            Log.e(TAG,"br");
-            String line;
-
+            String line=null;
+            int count=0;
             //分行读取
             while (( line = br.readLine()) != null) {
-                content += line + "\n";
-                Log.e("Text",content);
+                if (count<10){
+                    content += line + "\n";
+                }
+
+                count++;
+
             }
+            Log.e("count",count+"");
             ins.close();
 
         } catch (FileNotFoundException e) {
@@ -77,15 +92,37 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
 
         }
-        Log.e("TEXT111",content);
+        myText.setText(content);*/
+
+        String path = File.separator + "sdcard" + File.separator + "a.txt";
+        String encoding = "gbk";
+        File file = new File(path);
+
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encoding));
+            //InputStreamReader fr = new InputStreamReader(new FileInputStream(file),"gbk");
+            char [] buf = new char[1024];
+            int temp = br.read(buf);
+            content += new String(buf,0,temp);
+
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }catch(IOException e){
+            Log.e("xxxx","IO error ");
+            e.printStackTrace();
+        }
         myText.setText(content);
 
 
 
 
-
     }
+    protected class next implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
 
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
