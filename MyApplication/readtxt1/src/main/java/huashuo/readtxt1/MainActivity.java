@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
-import java.io.UnsupportedEncodingException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.Buffer;
@@ -27,13 +26,14 @@ import java.nio.Buffer;
 public class MainActivity extends ActionBarActivity {
     String content = "";
     String TAG = "XXXXXXXXXXX";
+    TextView myText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button button = (Button)findViewById(R.id.Button);
-        TextView myText = (TextView)findViewById(R.id.mytextview);
+        myText = (TextView)findViewById(R.id.mytextview);
 
         button.setOnClickListener(new next());
 
@@ -72,16 +72,16 @@ public class MainActivity extends ActionBarActivity {
             BufferedReader br = new BufferedReader(sb);
             String line=null;
             int count=0;
+            LineNumberReader LR = new LineNumberReader(br);
             //分行读取
             while (( line = br.readLine()) != null) {
                 if (count<10){
                     content += line + "\n";
                 }
-
                 count++;
-
             }
             Log.e("count",count+"");
+            Log.e("LineNumberReader",LR.readLine()+"");
             ins.close();
 
         } catch (FileNotFoundException e) {
@@ -94,16 +94,21 @@ public class MainActivity extends ActionBarActivity {
         }
         myText.setText(content);*/
 
-        String path = File.separator + "sdcard" + File.separator + "a.txt";
+
+ //Reader
+/*        String path = File.separator + "sdcard" + File.separator + "a.txt";
         String encoding = "gbk";
         File file = new File(path);
-
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encoding));
             //InputStreamReader fr = new InputStreamReader(new FileInputStream(file),"gbk");
             char [] buf = new char[1024];
             int temp = br.read(buf);
             content += new String(buf,0,temp);
+            LineNumberReader LR = new LineNumberReader(br);
+            LR.getLineNumber();
+            Log.e("getLinenumber",LR.getLineNumber()+"");
+
 
         }catch (FileNotFoundException e){
             e.printStackTrace();
@@ -111,15 +116,61 @@ public class MainActivity extends ActionBarActivity {
             Log.e("xxxx","IO error ");
             e.printStackTrace();
         }
-        myText.setText(content);
+        myText.setText(content);*/
+
+
+//分页
+/*        String path = File.separator + "sdcard" + File.separator + "a.txt";
+        String encoding = "gbk";
+        File file = new File(path);
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encoding));
+            int count = 0;
+            while (br.readLine()!=null) {
+                if (count <10) {
+                    content += br.readLine() + "\n";
+                }
+                count ++;
+            }
 
 
 
-
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }catch(IOException e){
+            Log.e("xxxx","IO error ");
+            e.printStackTrace();
+        }
+        myText.setText(content);*/
     }
     protected class next implements View.OnClickListener{
         @Override
         public void onClick(View v) {
+            String path = File.separator + "sdcard" + File.separator + "a.txt";
+            String encoding = "gbk";
+            File file = new File(path);
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encoding));
+                int count = 0;
+
+                while (br.readLine()!=null) {
+                    if (count <10) {
+                        content += br.readLine() + "\n";
+                    }
+                    count ++;
+                }
+
+
+
+            }catch (FileNotFoundException e){
+                Log.e("xxxx","File not found");
+                e.printStackTrace();
+            }catch(IOException e){
+                Log.e("xxxx","IO error ");
+                e.printStackTrace();
+            }
+            myText.setText(content);
+
 
         }
     }
