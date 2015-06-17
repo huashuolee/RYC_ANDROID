@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/getmac/getmac.iml" filepath="$PROJECT_DIR$/getmac/getmac.iml" />
       <module fileurl="file://$PROJECT_DIR$/iReader/iReader.iml" filepath="$PROJECT_DIR$/iReader/iReader.iml" />
       <module fileurl="file://$PROJECT_DIR$/learning_bitmap/learning_bitmap.iml" filepath="$PROJECT_DIR$/learning_bitmap/learning_bitmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mytxtreader/mytxtreader.iml" filepath="$PROJECT_DIR$/mytxtreader/mytxtreader.iml" />
       <module fileurl="file://$PROJECT_DIR$/photoIntentActivity/photoIntentActivity.iml" filepath="$PROJECT_DIR$/photoIntentActivity/photoIntentActivity.iml" />
       <module fileurl="file://$PROJECT_DIR$/readtxt1/readtxt1.iml" filepath="$PROJECT_DIR$/readtxt1/readtxt1.iml" />
       <module fileurl="file://$PROJECT_DIR$/record/record.iml" filepath="$PROJECT_DIR$/record/record.iml" />

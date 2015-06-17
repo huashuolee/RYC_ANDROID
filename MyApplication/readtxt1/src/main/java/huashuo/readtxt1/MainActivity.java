@@ -34,7 +34,6 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         Button button = (Button)findViewById(R.id.Button);
         myText = (TextView)findViewById(R.id.mytextview);
-
         button.setOnClickListener(new next());
 
 
