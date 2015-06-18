@@ -22,7 +22,7 @@ import java.nio.CharBuffer;
 
 
 public class MainActivity extends ActionBarActivity {
-    CharBuffer buffer = CharBuffer.allocate(8000);
+    CharBuffer buffer = CharBuffer.allocate(1024);
     TextView myText;
     Button nextButton,prevButton;
     String content = "";
@@ -39,16 +39,16 @@ public class MainActivity extends ActionBarActivity {
         prevButton = (Button)findViewById(R.id.prevButton);
         nextButton.setOnClickListener(new nextPage());
         prevButton.setOnClickListener(new prevPage());
-        loadBook();
+        loadBook(0);
         loadPage(0);
 
 
 
     }
 
-    private void loadBook() {
+    private void loadBook(int position) {
         String path = File.separator + "sdcard" + File.separator + "a.txt";
-        String encoding = "GBK";
+        String encoding = "UTF-8";
         File file = new File(path);
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encoding));
@@ -64,8 +64,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void loadPage(int position) {
+
         buffer.position(position);
         myText.setText(buffer);
+
 
     }
 
@@ -73,6 +75,7 @@ public class MainActivity extends ActionBarActivity {
     protected class nextPage implements View.OnClickListener{
         @Override
         public void onClick(View v) {
+
             position += 256;
             loadPage(position);
             Log.e("next","next");
