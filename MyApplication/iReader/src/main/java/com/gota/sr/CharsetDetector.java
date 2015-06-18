@@ -1,5 +1,7 @@
 package com.gota.sr;
 
+import android.util.Log;
+
 import info.monitorenter.cpdetector.io.JChardetFacade;
 
 import java.io.IOException;
@@ -23,6 +25,7 @@ public class CharsetDetector {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Log.e("Charset",charset+"");
 		return charset;
 	}
 	

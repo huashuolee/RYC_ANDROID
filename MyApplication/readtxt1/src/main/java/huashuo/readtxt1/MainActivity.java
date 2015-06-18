@@ -95,14 +95,14 @@ public class MainActivity extends ActionBarActivity {
 
 
  //Reader
-/*        String path = File.separator + "sdcard" + File.separator + "a.txt";
+        String path = File.separator + "sdcard" + File.separator + "a.txt";
         String encoding = "gbk";
         File file = new File(path);
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encoding));
-            //InputStreamReader fr = new InputStreamReader(new FileInputStream(file),"gbk");
             char [] buf = new char[1024];
             int temp = br.read(buf);
+            int temp1 = br.read(buf);
             content += new String(buf,0,temp);
             LineNumberReader LR = new LineNumberReader(br);
             LR.getLineNumber();
@@ -115,7 +115,7 @@ public class MainActivity extends ActionBarActivity {
             Log.e("xxxx","IO error ");
             e.printStackTrace();
         }
-        myText.setText(content);*/
+        myText.setText(content);
 
 
 //分页
@@ -145,6 +145,7 @@ public class MainActivity extends ActionBarActivity {
     protected class next implements View.OnClickListener{
         @Override
         public void onClick(View v) {
+/*
             String path = File.separator + "sdcard" + File.separator + "a.txt";
             String encoding = "gbk";
             File file = new File(path);
@@ -169,6 +170,7 @@ public class MainActivity extends ActionBarActivity {
                 e.printStackTrace();
             }
             myText.setText(content);
+*/
 
 
         }
