@@ -1,6 +1,5 @@
-package com.example.huashuolee.mytxtreader;
+package com.example.huashuolee.mytxttmp1;
 
-import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,19 +9,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.apache.http.util.EncodingUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOError;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 
 
 public class MainActivity extends ActionBarActivity {
-    CharBuffer buffer = CharBuffer.allocate(1024);
+    CharBuffer buffer = CharBuffer.allocate(128);
     TextView myText;
     Button nextButton,prevButton;
     String content = "";
@@ -30,6 +32,7 @@ public class MainActivity extends ActionBarActivity {
     int maxLine = 100;
     int position=0;
     String TAG = "===========";
+    InputStreamReader sr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +55,10 @@ public class MainActivity extends ActionBarActivity {
         String encoding = "GBK";
         File file = new File(path);
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encoding));
-            br.read(buffer);
+/*            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encoding));
+            br.read(buffer);*/
+
+            sr = new InputStreamReader(new FileInputStream(file),encoding);
 
 
 
@@ -65,15 +70,19 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
         }
 
+
+
     }
 
     private void loadPage(int position) {
-
+        try {
+            sr.read(buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         buffer.position(position);
         myText.setText(buffer);
         Log.e(TAG, position + " po " + buffer + "");
-
-
 
     }
 
@@ -82,10 +91,8 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
 
-            position += 4;
+            //position += 4;
             loadPage(position);
-
-
 
 
         }
@@ -94,7 +101,7 @@ public class MainActivity extends ActionBarActivity {
     protected class prevPage implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            position -= 4;
+            //position -= 4;
             loadPage(position);
 
 
