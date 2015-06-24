@@ -6,12 +6,14 @@
       <module fileurl="file://$PROJECT_DIR$/MyApplication.iml" filepath="$PROJECT_DIR$/MyApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/actionbar/actionbar.iml" filepath="$PROJECT_DIR$/actionbar/actionbar.iml" />
       <module fileurl="file://$PROJECT_DIR$/andriodDream/andriodDream.iml" filepath="$PROJECT_DIR$/andriodDream/andriodDream.iml" />
+      <module fileurl="file://$PROJECT_DIR$/book/book.iml" filepath="$PROJECT_DIR$/book/book.iml" />
       <module fileurl="file://$PROJECT_DIR$/camTestActivity/camTestActivity.iml" filepath="$PROJECT_DIR$/camTestActivity/camTestActivity.iml" />
       <module fileurl="file://$PROJECT_DIR$/camera.huashuo/camera.huashuo.iml" filepath="$PROJECT_DIR$/camera.huashuo/camera.huashuo.iml" />
       <module fileurl="file://$PROJECT_DIR$/camera2.huashuo/camera2.huashuo.iml" filepath="$PROJECT_DIR$/camera2.huashuo/camera2.huashuo.iml" />
       <module fileurl="file://$PROJECT_DIR$/getmac/getmac.iml" filepath="$PROJECT_DIR$/getmac/getmac.iml" />
       <module fileurl="file://$PROJECT_DIR$/iReader/iReader.iml" filepath="$PROJECT_DIR$/iReader/iReader.iml" />
       <module fileurl="file://$PROJECT_DIR$/learning_bitmap/learning_bitmap.iml" filepath="$PROJECT_DIR$/learning_bitmap/learning_bitmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myTask/myTask.iml" filepath="$PROJECT_DIR$/myTask/myTask.iml" />
       <module fileurl="file://$PROJECT_DIR$/mytxtreader/mytxtreader.iml" filepath="$PROJECT_DIR$/mytxtreader/mytxtreader.iml" />
       <module fileurl="file://$PROJECT_DIR$/mytxttmp1/mytxttmp1.iml" filepath="$PROJECT_DIR$/mytxttmp1/mytxttmp1.iml" />
       <module fileurl="file://$PROJECT_DIR$/photoIntentActivity/photoIntentActivity.iml" filepath="$PROJECT_DIR$/photoIntentActivity/photoIntentActivity.iml" />

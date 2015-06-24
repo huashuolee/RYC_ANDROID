@@ -8,31 +8,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import org.apache.http.util.EncodingUtils;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-
 
 public class MainActivity extends ActionBarActivity {
-    CharBuffer buffer = CharBuffer.allocate(128);
     TextView myText;
     Button nextButton,prevButton;
-    String content = "";
-    int count = 0;
-    int maxLine = 100;
     int position=0;
-    String TAG = "===========";
-    InputStreamReader sr;
+    String TAG = "xxxxxxxxxxx";
+    boolean next=false;
+    BufferedReader br ;
+    FileInputStream fis  ;
+    FileOutputStream fos ;
+    InputStreamReader fisr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,25 +37,19 @@ public class MainActivity extends ActionBarActivity {
         prevButton = (Button)findViewById(R.id.prevButton);
         nextButton.setOnClickListener(new nextPage());
         prevButton.setOnClickListener(new prevPage());
-        loadBook(0);
-        loadPage(0);
-
-
-
+        loadBook();
+        loadPage();
     }
 
-    private void loadBook(int position) {
+    private void loadBook() {
         String path = File.separator + "sdcard" + File.separator + "a.txt";
         String encoding = "GBK";
         File file = new File(path);
         try {
-/*            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encoding));
-            br.read(buffer);*/
-
-            sr = new InputStreamReader(new FileInputStream(file),encoding);
-
-
-
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encoding));
+            fis = new FileInputStream(file);
+            fisr = new InputStreamReader(fis,"GBK");
+            fos = new FileOutputStream("/sdcard/b.txt");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -74,15 +62,19 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    private void loadPage(int position) {
+    private void loadPage() {
+        char buf [] = new char[1024];
+        int count = 0;
         try {
-            sr.read(buffer);
-        } catch (IOException e) {
+            while (fisr.read(buf) != -1 && next) {
+                next = false;
+                Log.e("read:", new String(buf));
+                myText.setText(new String(buf));
+            }
+        }catch (IOException e){
             e.printStackTrace();
         }
-        buffer.position(position);
-        myText.setText(buffer);
-        Log.e(TAG, position + " po " + buffer + "");
+
 
     }
 
@@ -90,10 +82,8 @@ public class MainActivity extends ActionBarActivity {
     protected class nextPage implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-
-            //position += 4;
-            loadPage(position);
-
+            next = true;
+            loadPage();
 
         }
     }
@@ -101,8 +91,7 @@ public class MainActivity extends ActionBarActivity {
     protected class prevPage implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            //position -= 4;
-            loadPage(position);
+            loadPage();
 
 
         }
