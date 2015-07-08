@@ -13,13 +13,17 @@
       <module fileurl="file://$PROJECT_DIR$/getmac/getmac.iml" filepath="$PROJECT_DIR$/getmac/getmac.iml" />
       <module fileurl="file://$PROJECT_DIR$/iReader/iReader.iml" filepath="$PROJECT_DIR$/iReader/iReader.iml" />
       <module fileurl="file://$PROJECT_DIR$/learning_bitmap/learning_bitmap.iml" filepath="$PROJECT_DIR$/learning_bitmap/learning_bitmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mY_READER/mY_READER.iml" filepath="$PROJECT_DIR$/mY_READER/mY_READER.iml" />
       <module fileurl="file://$PROJECT_DIR$/myTask/myTask.iml" filepath="$PROJECT_DIR$/myTask/myTask.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mytxt/mytxt.iml" filepath="$PROJECT_DIR$/mytxt/mytxt.iml" />
       <module fileurl="file://$PROJECT_DIR$/mytxtreader/mytxtreader.iml" filepath="$PROJECT_DIR$/mytxtreader/mytxtreader.iml" />
       <module fileurl="file://$PROJECT_DIR$/mytxttmp1/mytxttmp1.iml" filepath="$PROJECT_DIR$/mytxttmp1/mytxttmp1.iml" />
       <module fileurl="file://$PROJECT_DIR$/photoIntentActivity/photoIntentActivity.iml" filepath="$PROJECT_DIR$/photoIntentActivity/photoIntentActivity.iml" />
       <module fileurl="file://$PROJECT_DIR$/readtxt1/readtxt1.iml" filepath="$PROJECT_DIR$/readtxt1/readtxt1.iml" />
       <module fileurl="file://$PROJECT_DIR$/record/record.iml" filepath="$PROJECT_DIR$/record/record.iml" />
       <module fileurl="file://$PROJECT_DIR$/settingdaemo/settingdaemo.iml" filepath="$PROJECT_DIR$/settingdaemo/settingdaemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/txtReader/txtReader.iml" filepath="$PROJECT_DIR$/txtReader/txtReader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/txtReader1/txtReader1.iml" filepath="$PROJECT_DIR$/txtReader1/txtReader1.iml" />
     </modules>
   </component>
 </project>

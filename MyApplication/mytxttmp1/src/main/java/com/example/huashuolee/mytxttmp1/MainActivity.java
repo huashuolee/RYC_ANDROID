@@ -1,5 +1,6 @@
 package com.example.huashuolee.mytxttmp1;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,21 +12,14 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends ActionBarActivity {
     TextView myText;
     Button nextButton,prevButton;
-    int position=0;
-    String TAG = "xxxxxxxxxxx";
-    boolean next=false;
     BufferedReader br ;
     FileInputStream fis  ;
-    FileOutputStream fos ;
     InputStreamReader fisr;
 
     @Override
@@ -34,11 +28,20 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         myText = (TextView)findViewById(R.id.main_text);
         nextButton = (Button)findViewById(R.id.nextButton);
-        prevButton = (Button)findViewById(R.id.prevButton);
+        prevButton = (Button)findViewById(R.id.preButton);
         nextButton.setOnClickListener(new nextPage());
         prevButton.setOnClickListener(new prevPage());
+        Button startS = (Button)findViewById(R.id.startS);
+        Button stopS = (Button)findViewById(R.id.stopS);
+        startS.setOnClickListener(new start());
         loadBook();
-        loadPage();
+    }
+
+    protected class start implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+
+        }
     }
 
     private void loadBook() {
@@ -49,29 +52,22 @@ public class MainActivity extends ActionBarActivity {
             br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encoding));
             fis = new FileInputStream(file);
             fisr = new InputStreamReader(fis,"GBK");
-            fos = new FileOutputStream("/sdcard/b.txt");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
     }
 
     private void loadPage() {
-        char buf [] = new char[1024];
-        int count = 0;
+        char [] buf = new char[256];
         try {
-            while (fisr.read(buf) != -1 && next) {
-                next = false;
-                Log.e("read:", new String(buf));
-                myText.setText(new String(buf));
-            }
-        }catch (IOException e){
+            fisr.read(buf);
+            Log.e("1111111111111",new String(buf));
+            myText.setText(new String(buf));
+//  下面的代码，会导致丢失文字， 不知道为什么
+/*            if (fisr.read(buf)==-1){
+                 myText.setText("finished");
+            }*/
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -82,7 +78,6 @@ public class MainActivity extends ActionBarActivity {
     protected class nextPage implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            next = true;
             loadPage();
 
         }
@@ -91,9 +86,6 @@ public class MainActivity extends ActionBarActivity {
     protected class prevPage implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            loadPage();
-
-
         }
     }
     @Override
@@ -117,4 +109,6 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
