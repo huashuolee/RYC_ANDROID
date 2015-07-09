@@ -12,15 +12,12 @@
             <option value="$PROJECT_DIR$/Browser" />
             <option value="$PROJECT_DIR$/actionbar" />
             <option value="$PROJECT_DIR$/andriodDream" />
-            <option value="$PROJECT_DIR$/book" />
             <option value="$PROJECT_DIR$/camTestActivity" />
             <option value="$PROJECT_DIR$/camera.huashuo" />
             <option value="$PROJECT_DIR$/camera2.huashuo" />
             <option value="$PROJECT_DIR$/getmac" />
             <option value="$PROJECT_DIR$/iReader" />
             <option value="$PROJECT_DIR$/learning_bitmap" />
-            <option value="$PROJECT_DIR$/mY_READER" />
-            <option value="$PROJECT_DIR$/myTask" />
             <option value="$PROJECT_DIR$/mytxt" />
             <option value="$PROJECT_DIR$/mytxtreader" />
             <option value="$PROJECT_DIR$/mytxttmp1" />
@@ -28,8 +25,6 @@
             <option value="$PROJECT_DIR$/readtxt1" />
             <option value="$PROJECT_DIR$/record" />
             <option value="$PROJECT_DIR$/settingdaemo" />
-            <option value="$PROJECT_DIR$/txtReader" />
-            <option value="$PROJECT_DIR$/txtReader1" />
           </set>
         </option>
       </GradleProjectSettings>
