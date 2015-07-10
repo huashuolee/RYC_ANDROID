@@ -3,6 +3,31 @@
     android:layout_width="match_parent"
     android:id="@+id/fragment_container"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/addFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add" />
 
+        <Button
+            android:id="@+id/rmFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="remove" />
+        <Button
+            android:id="@+id/rpFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="replace" />
+        <Button
+            android:id="@+id/btnSlider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Slider" />
+    </LinearLayout>
 </LinearLayout>
