@@ -1,35 +1,31 @@
 package com.goafter.hotwidget;
 
-import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 
-public class ChooseAdate extends ActionBarActivity {
-    private Button btnChooseDate;
+public class ChooseTime extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_adate);
-        btnChooseDate = (Button)findViewById(R.id.btnChooseDate);
-        btnChooseDate.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_choose_time);
+        Button btnChooseTime = (Button)findViewById(R.id.btnChooseTime);
+        btnChooseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(ChooseAdate.this, new DatePickerDialog.OnDateSetListener() {
+                new TimePickerDialog(ChooseTime.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String date = String.format("%d-%d-%d",year,monthOfYear+1,dayOfMonth);
-                        btnChooseDate.setText(date);
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
                     }
-                },2015,3,15).show();
-
+                },0,0,true).show();
             }
         });
     }
@@ -37,7 +33,7 @@ public class ChooseAdate extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_choose_adate, menu);
+        getMenuInflater().inflate(R.menu.menu_choose_time, menu);
         return true;
     }
 
