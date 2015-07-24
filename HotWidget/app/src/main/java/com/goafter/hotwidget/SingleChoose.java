@@ -1,32 +1,33 @@
 package com.goafter.hotwidget;
 
-import android.app.TimePickerDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TimePicker;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 
-public class ChooseTime extends ActionBarActivity {
+public class SingleChoose extends ActionBarActivity {
+    private RadioButton rbA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_time);
-        final Button btnChooseTime = (Button)findViewById(R.id.btnChooseTime);
-        btnChooseTime.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_single_choose);
+        Button btnSubmit = (Button)findViewById(R.id.btnSubmit);
+        rbA = (RadioButton)findViewById(R.id.rbA);
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TimePickerDialog(ChooseTime.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        String time = String.format("%d:%d",hourOfDay, minute);
-                        btnChooseTime.setText(time+":00");
-                    }
-                },10,10,false).show();
+                if (rbA.isChecked()){
+                    Toast.makeText(SingleChoose.this, "Sigh", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(SingleChoose.this, "Good", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -34,7 +35,7 @@ public class ChooseTime extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_choose_time, menu);
+        getMenuInflater().inflate(R.menu.menu_single_choose, menu);
         return true;
     }
 
