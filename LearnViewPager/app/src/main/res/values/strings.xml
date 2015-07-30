@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LearnViewPager</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_simple_cursor_adapter">SimpleCursorAdapter</string>
+    <string name="title_activity_learning_simple_adapter">LearningSimpleAdapter</string>
+</resources>
