@@ -2,6 +2,7 @@ package com.goafter.learnviewpager;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -13,17 +14,18 @@ import java.util.List;
 import java.util.Map;
 
 
-public class LearningSimpleAdapter extends ListActivity {
+public class LearningSimpleAdapter extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ListView listView = new ListView(this);
-        SimpleAdapter listAdapter = new SimpleAdapter(this,getData(),R.layout.vlist, new String[]{"title","info","img"},new int[]{R.id.title,R.id.info,R.id.img});
-        listView.setAdapter(listAdapter);
+        SimpleAdapter simpleAdapterr = new SimpleAdapter(this,getData(),R.layout.vlist, new String[]{"title","info","img"},new int[]{R.id.title,R.id.info,R.id.img});
+        listView.setAdapter(simpleAdapterr);
         setContentView(listView);
 
     }
+
 
     private List<Map<String, Object>> getData() {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
