@@ -1,27 +1,22 @@
-package com.goafter.learningdrawerlayout;
+package com.goafter.learnsurfaceview;
 
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
 
-public class NPE_getaction extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_npe_getaction);
-        WebView wv = (WebView) findViewById(R.id.wv);
-        wv.loadUrl("http://www.baidu.com");
-
+        setContentView(R.layout.activity_main);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_npe_getaction, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 

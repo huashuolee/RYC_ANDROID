@@ -1,25 +1,26 @@
 package com.goafter.learningdrawerlayout;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.PersistableBundle;
-import android.provider.Settings;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SearchViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private DrawerLayout mDrawerLayout;
     private ArrayList<String> itemList;
     private ArrayAdapter<String> arrayAdapter;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.left_drawer);
         arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,getData());
         listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(this);
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.drawable.ic_drawer,R.string.drawer_open,R.string.drawer_close){
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -101,5 +103,22 @@ public class MainActivity extends AppCompatActivity {
     public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
         mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //动态插入fragment
+        Fragment content_fragment = new Content_fragment();
+        Bundle mBundle = new Bundle();
+        mBundle.putString("text",itemList.get(position));
+        content_fragment.setArguments(mBundle);
+
+
+        FragmentManager mFragmentManager = getFragmentManager();
+        mFragmentManager.beginTransaction().replace(R.id.content_frame,content_fragment).commit();
+        mDrawerLayout.closeDrawers();
+
+
+
     }
 }
