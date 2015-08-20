@@ -1,5 +1,6 @@
 package com.goafter.learningsavedata;
 
+import android.app.ListActivity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,10 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ListActivity {
     private Button btnRead, btnWrite;
     private TextView result;
     private EditText editText;
@@ -41,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
             SQLiteDatabase dbWrite = db.getWritableDatabase();
             ContentValues cv = new ContentValues();
             cv.put("name","zhang san");
-            cv.put("sex","male");
+            cv.put("sex", "male");
             dbWrite.insert("user", null, cv);
 
             cv = new ContentValues();
             cv.put("name", "li si");
             cv.put("sex", "male");
-            dbWrite.insert("user",null,cv);
+            dbWrite.insert("user", null, cv);
 
             dbWrite.close();
 
@@ -68,7 +70,11 @@ public class MainActivity extends AppCompatActivity {
            // db.getReadableDatabase().query("user",null,null,null,null,null,null);
             SQLiteDatabase dbRead = db.getReadableDatabase();
             Cursor c = dbRead.query("user", new String[]{"name", "sex"}, null, null, null, null, null);
-            adapter = new SimpleCursorAdapter(this,android.R.layout.simple_list_item_1,c,new String[]{"name","sex"},int[]{})
+
+            adapter = new SimpleCursorAdapter(MainActivity.this,R.layout.user_list_cell,c,new String[]{"name","sex"},new int[]{R.id.tvName, R.id.tvSex});
+            adapter.changeCursor(c);
+            setListAdapter(adapter);
+
 
         }
     }
