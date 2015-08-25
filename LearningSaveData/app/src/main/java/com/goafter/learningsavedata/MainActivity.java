@@ -72,6 +72,7 @@ public class MainActivity extends ListActivity {
             //第二个参数 new String[]{"_id","name", "sex"}, 可以用null,每次查询时必须带"_id"，否则SimpleCursorAdapter 会报错。
             Cursor c = dbRead.query("user", new String[]{"_id","name", "sex"}, null, null, null, null, null);
 
+
             adapter = new SimpleCursorAdapter(MainActivity.this,R.layout.user_list_cell,c,new String[]{"name","sex"},new int[]{R.id.tvName, R.id.tvSex});
             adapter.changeCursor(c);
             setListAdapter(adapter);
