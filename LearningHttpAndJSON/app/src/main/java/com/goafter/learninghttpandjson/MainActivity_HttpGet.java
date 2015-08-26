@@ -82,13 +82,22 @@ public class MainActivity_HttpGet extends AppCompatActivity {
                 protected void onPostExecute(StringBuilder stringBuilder) {
                     super.onPostExecute(stringBuilder);
                     try {
+
                         JSONObject jsonObject = new JSONObject(builder.toString()).getJSONObject("basic");
+                        String explains = new String(jsonObject.getString("explains"));
+                        //tvResult.setText(explains);
 
-                        String[] explains = new String[]{jsonObject.getString("explains")};
-                        List<String> list = new ArrayList<String>();
 
+                        JSONArray array = jsonObject.getJSONArray("explains");
 
-                        tvResult.setText(explains[0]);
+                        String result1 = "";
+                        for (int i=0;i<array.length();i++){
+                           // JSONObject lan = array.getString(i);
+                            Log.e("1111111",array.getString(i));
+                            result1 += array.getString(i)+"\r\n";
+
+                        }
+                        tvResult.setText(result1);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
