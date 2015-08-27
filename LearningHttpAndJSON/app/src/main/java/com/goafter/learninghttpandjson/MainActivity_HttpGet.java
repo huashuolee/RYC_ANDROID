@@ -1,6 +1,5 @@
 package com.goafter.learninghttpandjson;
 
-import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,8 +20,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity_HttpGet extends AppCompatActivity {
 
@@ -68,7 +65,6 @@ public class MainActivity_HttpGet extends AppCompatActivity {
 
                         while((line = br.readLine()) != null){
                             builder.append(line);
-                            Log.e("1111111",line);
                         }
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
@@ -84,15 +80,11 @@ public class MainActivity_HttpGet extends AppCompatActivity {
                     try {
 
                         JSONObject jsonObject = new JSONObject(builder.toString()).getJSONObject("basic");
-                        String explains = new String(jsonObject.getString("explains"));
-                        //tvResult.setText(explains);
-
-
+                        //String explains = new String(jsonObject.getString("explains"));
                         JSONArray array = jsonObject.getJSONArray("explains");
 
                         String result1 = "";
                         for (int i=0;i<array.length();i++){
-                           // JSONObject lan = array.getString(i);
                             Log.e("1111111",array.getString(i));
                             result1 += array.getString(i)+"\r\n";
 
