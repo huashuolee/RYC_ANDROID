@@ -8,11 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -95,8 +95,12 @@ public class MainActivity_HttpGet extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                }
 
-
+                @Override
+                protected void onPreExecute() {
+                    Toast.makeText(MainActivity_HttpGet.this,"玩命查询ing", Toast.LENGTH_SHORT).show();
+                    super.onPreExecute();
                 }
             }.execute(url);
 

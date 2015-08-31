@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by huashuolee on 2015/7/30.
+ * 导航页的demo
  */
 public class Guiding extends Activity {
     private List<View> views;
