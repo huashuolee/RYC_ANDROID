@@ -3,4 +3,15 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string-array name="planets_array">
+        <item>工具包：</item>
+        <item>有道在线词典</item>
+        <item>天气预报</item>
+        <item>手电筒</item>
+        <item>地图定位</item>
+        <item>拍照签到</item>
+        <item>快速拨打电话</item>
+        <item>我的周边</item>
+        <item>更多...</item>
+    </string-array>
 </resources>
