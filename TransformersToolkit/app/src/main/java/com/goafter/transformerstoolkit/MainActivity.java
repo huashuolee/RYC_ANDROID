@@ -1,8 +1,11 @@
 package com.goafter.transformerstoolkit;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,12 +28,52 @@ public class MainActivity extends AppCompatActivity {
         mPlanetTitles = getResources().getStringArray(R.array.planets_array);
         ArrayAdapter <String > lfadapter = new ArrayAdapter<String>(this,R.layout.drawer_list_item,mPlanetTitles);
         mDrawerList.setAdapter(lfadapter);
+
+        //动态插入fragment
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
     }
     private class DrawerItemClickListener implements ListView.OnItemClickListener{
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //动态插入fragment到framelayout中
+            switch (position) {
+                case 1:
+                    Log.e("11111111111","11111111111");
+                    Fragment youDao_fragment = new com.goafter.transformerstoolkit.utility.YouDao();
+                    getFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.drawer_layout, youDao_fragment)
+                            .addToBackStack(null)
+                            .commit();
+                    mDrawerLayout.closeDrawers();
+                    break;
+                case 2:
+                    Log.e("2222222222","2222222222");
+                    Fragment fileManager_fragment  = new com.goafter.transformerstoolkit.utility.FileManager();
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.drawer_layout, fileManager_fragment)
+                            .addToBackStack(null)
+                            .commit();
+                    mDrawerLayout.closeDrawers();
+                    break;
+
+            }
+
+
+/*            FragmentTransaction ft =  getFragmentManager().beginTransaction();
+            Fragment fragment = null;
+            switch (position){
+                case 1:
+                    fragment = new com.goafter.transformerstoolkit.utility.YouDao();
+                    break;
+                case 2:
+                    fragment = new com.goafter.transformerstoolkit.utility.FileManager();
+                    break;
+
+            }
+            ft.add(R.id.drawer_layout,fragment).commit();
+            mDrawerLayout.closeDrawers();*/
 
         }
     }
