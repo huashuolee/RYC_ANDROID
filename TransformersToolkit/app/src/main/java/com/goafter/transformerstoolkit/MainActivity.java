@@ -15,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.text.Html;
 
+import com.goafter.transformerstoolkit.utility.*;
+
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -28,14 +30,15 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mPlanetTitles = getResources().getStringArray(R.array.planets_array);
-        ArrayAdapter <String > lfadapter = new ArrayAdapter<String>(this,R.layout.drawer_list_item,mPlanetTitles);
+        ArrayAdapter<String> lfadapter = new ArrayAdapter<String>(this, R.layout.drawer_list_item, mPlanetTitles);
         mDrawerList.setAdapter(lfadapter);
 
         //动态插入fragment
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
     }
-    private class DrawerItemClickListener implements ListView.OnItemClickListener{
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             //动态插入fragment到framelayout中
@@ -63,44 +66,30 @@ public class MainActivity extends AppCompatActivity {
 
             }*/
 
-
             FragmentTransaction ft =  getFragmentManager().beginTransaction();
             Fragment fragment = null;
             switch (position){
                 case 1:
-                    fragment = new com.goafter.transformerstoolkit.utility.YouDao();
+                    fragment = new YouDao();
                     break;
                 case 2:
-                    fragment = new com.goafter.transformerstoolkit.utility.FileManager();
+                    fragment = new FileManager();
                     break;
                 default:
                     break;
 
             }
             if (fragment!=null) {
-                ft.replace(R.id.drawer_layout, fragment).commit();
+                ft.replace(R.id.content_frame, fragment).commit();
             }
             mDrawerLayout.closeDrawers();
-
-        }
-
-/*        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Fragment fragment = new com.goafter.transformerstoolkit.utility.FileManager();
-
-            // Insert the fragment by replacing any existing fragment
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, fragment)
-                    .commit();
-
-            // Highlight the selected item, update the title, and close the drawer
             mDrawerList.setItemChecked(position, true);
             setTitle(mPlanetTitles[position]);
             mDrawerLayout.closeDrawer(mDrawerList);
 
+        }
 
-        }*/
+
     }
 
     @Override
