@@ -42,30 +42,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             //动态插入fragment到framelayout中
-/*            switch (position) {
-                case 1:
-                    Log.e("11111111111","11111111111");
-                    Fragment youDao_fragment = new com.goafter.transformerstoolkit.utility.YouDao();
-                    getFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.drawer_layout, youDao_fragment)
-                            .addToBackStack(null)
-                            .commit();
-                    mDrawerLayout.closeDrawers();
-                    break;
-                case 2:
-                    Log.e("2222222222","2222222222");
-
-                    Fragment fileManager_fragment  = new com.goafter.transformerstoolkit.utility.FileManager();
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.drawer_layout, fileManager_fragment)
-                            .addToBackStack(null)
-                            .commit();
-                    mDrawerLayout.closeDrawers();
-                    break;
-
-            }*/
-
             FragmentTransaction ft =  getFragmentManager().beginTransaction();
             Fragment fragment = null;
             switch (position){
