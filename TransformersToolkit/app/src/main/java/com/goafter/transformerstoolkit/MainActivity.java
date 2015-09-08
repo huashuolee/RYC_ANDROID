@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private class DrawerItemClickListener implements ListView.OnItemClickListener{
-   /*     @Override
+        @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             //动态插入fragment到framelayout中
-            switch (position) {
+/*            switch (position) {
                 case 1:
                     Log.e("11111111111","11111111111");
                     Fragment youDao_fragment = new com.goafter.transformerstoolkit.utility.YouDao();
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     mDrawerLayout.closeDrawers();
                     break;
 
-            }
+            }*/
 
 
             FragmentTransaction ft =  getFragmentManager().beginTransaction();
@@ -73,14 +73,18 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     fragment = new com.goafter.transformerstoolkit.utility.FileManager();
                     break;
+                default:
+                    break;
 
             }
-            ft.add(R.id.drawer_layout,fragment).commit();
+            if (fragment!=null) {
+                ft.replace(R.id.drawer_layout, fragment).commit();
+            }
             mDrawerLayout.closeDrawers();
 
-        }*/
+        }
 
-        @Override
+/*        @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Fragment fragment = new com.goafter.transformerstoolkit.utility.FileManager();
 
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             mDrawerLayout.closeDrawer(mDrawerList);
 
 
-        }
+        }*/
     }
 
     @Override
