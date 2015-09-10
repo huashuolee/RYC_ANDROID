@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     fragment = new FileManager();
                     break;
+                case 3:
+                    fragment = new Weather();
                 default:
                     break;
 
