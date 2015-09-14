@@ -96,20 +96,13 @@ public class Weather extends Fragment {
             @Override
             protected void onPostExecute(StringBuilder stringBuilder) {
                 super.onPostExecute(stringBuilder);
-                Log.e("111111",builder.toString());
+                Log.e("111111", builder.toString());
                 try {
-
-                    JSONObject jsonObject = new JSONObject(builder.toString()).getJSONObject("basic");
-                    //String explains = new String(jsonObject.getString("explains"));
-                    JSONArray array = jsonObject.getJSONArray("explains");
-
-                    String result1 = "";
-                    for (int i=0;i<array.length();i++){
-                        Log.e("1111111", array.getString(i));
-                        result1 += array.getString(i)+"\r\n";
-
-                    }
-                    tvResult.setText(result1);
+                    JSONObject  dataJson=new JSONObject(builder.toString()); //获得 dataJSON
+                    JSONArray allDataJSONArray =dataJson.getJSONArray("HeWeather data service 3.0"); //  先获得JSONArray
+                    JSONObject allDataJSONObject = allDataJSONArray.getJSONObject(0); //从JSONArray 中 获得JSONObject
+                    JSONObject now = allDataJSONObject.getJSONObject("now"); //从JSONObject 中获取想要的OBJECT.
+                    tvResult.setText(now.getJSONObject("wind").getString("dir"));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

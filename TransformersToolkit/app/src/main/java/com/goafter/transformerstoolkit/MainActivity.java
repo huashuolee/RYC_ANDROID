@@ -53,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 3:
                     fragment = new Weather();
+                    break;
+                case 4:
+                    fragment = new MyBaiduMap();
+                    break;
                 default:
                     break;
 
