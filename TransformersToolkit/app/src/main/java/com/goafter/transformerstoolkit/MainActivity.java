@@ -55,16 +55,10 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new Weather();
                     break;
                 case 4:
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                    fragment = new MyBaiduMap();
-=======
                     fragment = new Torch();
->>>>>>> Stashed changes
-=======
-                    fragment = new Torch();
->>>>>>> Stashed changes
                     break;
+                case 5:
+                    fragment = new MyBaiduMap();
                 default:
                     break;
 

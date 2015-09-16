@@ -98,8 +98,7 @@ public class Weather extends Fragment {
             @Override
             protected void onPostExecute(StringBuilder stringBuilder) {
                 super.onPostExecute(stringBuilder);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+/*
                 Log.e("111111", builder.toString());
                 try {
                     JSONObject  dataJson=new JSONObject(builder.toString()); //获得 dataJSON
@@ -107,9 +106,7 @@ public class Weather extends Fragment {
                     JSONObject allDataJSONObject = allDataJSONArray.getJSONObject(0); //从JSONArray 中 获得JSONObject
                     JSONObject now = allDataJSONObject.getJSONObject("now"); //从JSONObject 中获取想要的OBJECT.
                     tvResult.setText(now.getJSONObject("wind").getString("dir"));
-=======
-=======
->>>>>>> Stashed changes
+*/
 
                 try {
 
@@ -131,10 +128,6 @@ public class Weather extends Fragment {
 
                     }
                     tvResult.setText(result);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
                 } catch (JSONException e) {
                     e.printStackTrace();
