@@ -1,7 +1,5 @@
 package com.goafter.transformerstoolkit.utility;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -31,6 +29,7 @@ import java.net.URLConnection;
 public class Weather extends Fragment {
     StringBuilder builder;
     TextView tvResult;
+    TextView tvLocation;
 
 
     public Weather() {
@@ -52,6 +51,9 @@ public class Weather extends Fragment {
         Button btnGetData = (Button) view.findViewById(R.id.btnGetData);
         tvResult = (TextView) view.findViewById(R.id.tvResult);
         btnGetData.setOnClickListener(new GetWeatherData());
+        update(UrlConst.WEATHER + "city=beijing");
+        tvLocation = (TextView) view.findViewById(R.id.tvLocation);
+        tvLocation.setText("北京　");
 
 
         return view;
@@ -74,7 +76,7 @@ public class Weather extends Fragment {
                 try {
                     URL url = new URL(params[0]);
                     URLConnection connection = url.openConnection();
-                    connection.setRequestProperty("apikey", UrlConst.WEATHER_APIKEY);
+                    connection.setRequestProperty("apikey", UrlConst.BAIDU_APIKEY);
                     InputStream is = connection.getInputStream();
                     InputStreamReader isr = new InputStreamReader(is,"utf-8");
                     BufferedReader br = new BufferedReader(isr);
@@ -96,6 +98,8 @@ public class Weather extends Fragment {
             @Override
             protected void onPostExecute(StringBuilder stringBuilder) {
                 super.onPostExecute(stringBuilder);
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 Log.e("111111", builder.toString());
                 try {
                     JSONObject  dataJson=new JSONObject(builder.toString()); //获得 dataJSON
@@ -103,6 +107,34 @@ public class Weather extends Fragment {
                     JSONObject allDataJSONObject = allDataJSONArray.getJSONObject(0); //从JSONArray 中 获得JSONObject
                     JSONObject now = allDataJSONObject.getJSONObject("now"); //从JSONObject 中获取想要的OBJECT.
                     tvResult.setText(now.getJSONObject("wind").getString("dir"));
+=======
+=======
+>>>>>>> Stashed changes
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(builder.toString());
+                    //JSONObject aqi = jsonObject.getJSONObject("aqi");
+                    JSONArray array = jsonObject.getJSONArray("HeWeather data service 3.0");
+                    JSONObject allData = array.getJSONObject(0);
+                    JSONObject now = allData.getJSONObject("now");
+                    Log.e("444444", allData.getString("basic"));
+                    String fl = now.getString("fl");
+                    String txt = now.getJSONObject("cond").getString("txt");
+                    String direction_wind = now.getJSONObject("wind").getString("dir");
+                    String sc = now.getJSONObject("wind").getString("sc");
+                    String sug_drsg = allData.getJSONObject("suggestion").getJSONObject("drsg").getString("txt");
+                    String[] display = new String[]{"体感温度："+fl+ "摄氏度",txt,direction_wind + ": "+ sc,sug_drsg};
+                    String result = "";
+                    for (String i : display){
+                        result += i + "\r\n";
+
+                    }
+                    tvResult.setText(result);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
                 } catch (JSONException e) {
                     e.printStackTrace();
