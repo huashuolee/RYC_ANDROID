@@ -27,7 +27,7 @@ import java.util.List;
 public class BAIDUMAP extends Activity {
     public MapView mMapView = null;
     public LocationClient mLocationClient = null;
-    public BDLocationListener myListener = new MyLocationListener();
+    public BDLocationListener myListener;
     public BitmapDescriptor mCurrentMarker;
     public BDLocation location;
     public Button btnStart, btnStop;
@@ -49,28 +49,42 @@ public class BAIDUMAP extends Activity {
         mMapView = (MapView) findViewById(R.id.bmapView);
         tvInfo = (TextView) findViewById(R.id.tvInfo);
         btnStart = (Button) findViewById(R.id.btnStart);
-        btnStop = (Button) findViewById(R.id.btnStop);
+        //btnStop = (Button) findViewById(R.id.btnStop);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLocationClient.start();
+                if (mLocationClient.isStarted()){
+                    mLocationClient.stop();
+                    btnStart.setText("开始定位");
+
+
+                }else {
+                    mLocationClient.start();
+                    btnStart.setText("结束定位");
+
+                }
+
+               // Log.e("111111111",location.getAddrStr());
+
             }
         });
-        btnStop.setOnClickListener(new View.OnClickListener() {
+/*        btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mLocationClient.stop();
                 mBaiduMap.setMyLocationEnabled(false);
             }
-        });
+        });*/
         mBaiduMap = mMapView.getMap();
 
 
         //定位
         // 第一步，初始化LocationClient类
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
+        myListener = new MyLocationListener();
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         initLocation();
+
 
         //第四步，开始定位
 
@@ -107,6 +121,7 @@ public class BAIDUMAP extends Activity {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
+
             //Receive Location
             StringBuffer sb = new StringBuffer(256);
             sb.append("time : ");

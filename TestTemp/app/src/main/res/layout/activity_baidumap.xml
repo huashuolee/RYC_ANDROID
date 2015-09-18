@@ -19,11 +19,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnStart"
             android:text="开始定位"/>
-        <Button
+<!--        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnStop"
-            android:text="结束定位"/>
+            android:text="结束定位"/>-->
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
