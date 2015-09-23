@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.goafter.transformerstoolkit.R;
 
 import org.json.JSONArray;
@@ -30,6 +34,9 @@ public class Weather extends Fragment {
     StringBuilder builder;
     TextView tvResult;
     TextView tvLocation;
+    LocationClient mLocationClient;
+    BDLocationListener mylistener;
+    String locCity,locAddrStr, locDistrict, locDescribe;
 
 
     public Weather() {
@@ -51,20 +58,83 @@ public class Weather extends Fragment {
         Button btnGetData = (Button) view.findViewById(R.id.btnGetData);
         tvResult = (TextView) view.findViewById(R.id.tvResult);
         btnGetData.setOnClickListener(new GetWeatherData());
-        update(UrlConst.WEATHER + "city=beijing");
         tvLocation = (TextView) view.findViewById(R.id.tvLocation);
-        tvLocation.setText("北京　");
+        tvLocation.setText("查询ing　");
 
+
+        //获取当前位置
+
+        mLocationClient = new LocationClient(getActivity());
+        initConfig();
+        mylistener = new myLocationListener();
+        mLocationClient.registerLocationListener(mylistener);
+
+
+        //自动查询天气
+        queryWeather();
 
         return view;
+    }
+
+    public void initConfig(){
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
+        int span=0;
+        option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
+        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
+        option.setOpenGps(true);//可选，默认false,设置是否使用gps
+        option.setLocationNotify(true);//可选，默认false，设置是否当gps有效时按照1S1次频率输出GPS结果
+        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+        option.setIgnoreKillProcess(false);//可选，默认false，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认杀死
+        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
+        option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
+        mLocationClient.setLocOption(option);
+
+    }
+
+    public void queryWeather(){
+        mLocationClient.start();
+        if (locDistrict == null){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }else{
+            String sublocDistrict = locDistrict.substring(0, locDistrict.indexOf("区"));
+            String city = "city=" + sublocDistrict;
+            update(UrlConst.WEATHER + city);
+            tvLocation.setText(locDistrict);
+        }
+        mLocationClient.stop();
     }
 
     class GetWeatherData implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            String city = "city=beijing";
-            String url = UrlConst.WEATHER + city;
-            update(url);
+            queryWeather();
+
+
+        }
+    }
+
+
+    class myLocationListener implements BDLocationListener{
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("getCity "+ bdLocation.getCity()+"\n");
+            sb.append("getDistrict "+ bdLocation.getDistrict() + "\n");
+            sb.append("getLocationDescribe "+bdLocation.getLocationDescribe()+ "\n");
+            sb.append("getAddrStr " + bdLocation.getAddrStr()+"\n");
+            sb.append("getNetworkLocationType " + bdLocation.getNetworkLocationType()+ "\n");
+            Log.e("Transformers Tools", sb.toString());
+            locCity = bdLocation.getCity();
+            locDistrict = bdLocation.getDistrict();
+            locDescribe = bdLocation.getLocationDescribe();
+            locAddrStr = bdLocation.getAddrStr();
 
 
         }
@@ -73,6 +143,7 @@ public class Weather extends Fragment {
     private void update(String url){
         new AsyncTask<String,Void,StringBuilder>(){
             protected StringBuilder doInBackground(String... params) {
+
                 try {
                     URL url = new URL(params[0]);
                     URLConnection connection = url.openConnection();
