@@ -36,7 +36,7 @@ public class Weather extends Fragment {
     TextView tvLocation;
     LocationClient mLocationClient;
     BDLocationListener mylistener;
-    String locCity,locAddrStr, locDistrict, locDescribe;
+    String locCity, locAddrStr, locDistrict, locDescribe;
 
 
     public Weather() {
@@ -60,27 +60,22 @@ public class Weather extends Fragment {
         btnGetData.setOnClickListener(new GetWeatherData());
         tvLocation = (TextView) view.findViewById(R.id.tvLocation);
         tvLocation.setText("查询ing　");
-
-
         //获取当前位置
-
         mLocationClient = new LocationClient(getActivity());
         initConfig();
         mylistener = new myLocationListener();
         mLocationClient.registerLocationListener(mylistener);
-
-
+        //mLocationClient.start();
         //自动查询天气
-        queryWeather();
-
+        //queryWeather();
         return view;
     }
 
-    public void initConfig(){
+    public void initConfig() {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span=0;
+        int span = 0;
         option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
         option.setOpenGps(true);//可选，默认false,设置是否使用gps
@@ -94,24 +89,40 @@ public class Weather extends Fragment {
 
     }
 
-    public void queryWeather(){
+    public void queryWeather() {
         mLocationClient.start();
-        if (locDistrict == null){
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        StringBuffer sb = new StringBuffer();
+        sb.append(locAddrStr);
+        while (true) {
+            if (locAddrStr != null) {
+                Log.e("2222222", sb.toString());
+                String sublocDistrict = locDistrict.substring(0, locDistrict.indexOf("区"));
+                String city = "city=" + sublocDistrict;
+                update(UrlConst.WEATHER + city);
+                tvLocation.setText(locDistrict);
+
+                mLocationClient.stop();
+                break;
+            }else{
+                Log.e("33333333","waiting location……");
             }
-        }else{
-            String sublocDistrict = locDistrict.substring(0, locDistrict.indexOf("区"));
-            String city = "city=" + sublocDistrict;
-            update(UrlConst.WEATHER + city);
-            tvLocation.setText(locDistrict);
         }
-        mLocationClient.stop();
+
+
     }
 
-    class GetWeatherData implements View.OnClickListener{
+
+
+    public void safeStart() {
+        if (mLocationClient != null) {
+            mLocationClient.stop();
+
+        } else {
+            mLocationClient.start();
+        }
+    }
+
+    class GetWeatherData implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             queryWeather();
@@ -121,15 +132,16 @@ public class Weather extends Fragment {
     }
 
 
-    class myLocationListener implements BDLocationListener{
+    class myLocationListener implements BDLocationListener {
+
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
             StringBuilder sb = new StringBuilder();
-            sb.append("getCity "+ bdLocation.getCity()+"\n");
-            sb.append("getDistrict "+ bdLocation.getDistrict() + "\n");
-            sb.append("getLocationDescribe "+bdLocation.getLocationDescribe()+ "\n");
-            sb.append("getAddrStr " + bdLocation.getAddrStr()+"\n");
-            sb.append("getNetworkLocationType " + bdLocation.getNetworkLocationType()+ "\n");
+            sb.append("getCity " + bdLocation.getCity() + "\n");
+            sb.append("getDistrict " + bdLocation.getDistrict() + "\n");
+            sb.append("getLocationDescribe " + bdLocation.getLocationDescribe() + "\n");
+            sb.append("getAddrStr " + bdLocation.getAddrStr() + "\n");
+            sb.append("getNetworkLocationType " + bdLocation.getNetworkLocationType() + "\n");
             Log.e("Transformers Tools", sb.toString());
             locCity = bdLocation.getCity();
             locDistrict = bdLocation.getDistrict();
@@ -138,10 +150,11 @@ public class Weather extends Fragment {
 
 
         }
+
     }
 
-    private void update(String url){
-        new AsyncTask<String,Void,StringBuilder>(){
+    private void update(String url) {
+        new AsyncTask<String, Void, StringBuilder>() {
             protected StringBuilder doInBackground(String... params) {
 
                 try {
@@ -149,12 +162,12 @@ public class Weather extends Fragment {
                     URLConnection connection = url.openConnection();
                     connection.setRequestProperty("apikey", UrlConst.BAIDU_APIKEY);
                     InputStream is = connection.getInputStream();
-                    InputStreamReader isr = new InputStreamReader(is,"utf-8");
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");
                     BufferedReader br = new BufferedReader(isr);
                     builder = new StringBuilder();
                     String line = null;
 
-                    while((line = br.readLine()) != null){
+                    while ((line = br.readLine()) != null) {
                         builder.append(line);
                     }
                     return builder;
@@ -192,9 +205,9 @@ public class Weather extends Fragment {
                     String direction_wind = now.getJSONObject("wind").getString("dir");
                     String sc = now.getJSONObject("wind").getString("sc");
                     String sug_drsg = allData.getJSONObject("suggestion").getJSONObject("drsg").getString("txt");
-                    String[] display = new String[]{"体感温度："+fl+ "摄氏度",txt,direction_wind + ": "+ sc,sug_drsg};
+                    String[] display = new String[]{"体感温度：" + fl + "摄氏度", txt, direction_wind + ": " + sc, sug_drsg};
                     String result = "";
-                    for (String i : display){
+                    for (String i : display) {
                         result += i + "\r\n";
 
                     }
@@ -214,9 +227,6 @@ public class Weather extends Fragment {
         }.execute(url);
 
     }
-
-
-
 
 
 }
