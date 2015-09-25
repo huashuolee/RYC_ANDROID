@@ -3,7 +3,19 @@
     android:layout_height="match_parent"
     tools:context="com.goafter.testtemp.LearningBDMAP">
 
-<com.baidu.mapapi.map.MapView
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"></com.baidu.mapapi.map.MapView>
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnStart"
+            android:text="开始定位"/>
+    </LinearLayout>
 </RelativeLayout>

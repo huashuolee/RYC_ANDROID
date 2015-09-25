@@ -1,6 +1,5 @@
 package com.goafter.testtemp;
 
-import android.location.LocationListener;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +28,7 @@ public class LearningBDMAP extends AppCompatActivity {
     public BaiduMap mBaiduMap;
     MapView mMapView;
     Button btnStart;
+    LatLng center;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +52,11 @@ public class LearningBDMAP extends AppCompatActivity {
                     btnStart.setText("开始定位");
 
 
+
                 }else {
                     mLocationClient.start();
                     btnStart.setText("结束定位");
+
 
                 }
 
@@ -79,6 +81,16 @@ public class LearningBDMAP extends AppCompatActivity {
         option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
         mLocationClient.setLocOption(option);
+    }
+
+    public void mvCenter(){
+        MapStatus mMapStatus = new MapStatus.Builder()
+                .target(center)
+                .overlook(-45)
+                .zoom(18)
+                .build();
+        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+        mBaiduMap.setMapStatus(mMapStatusUpdate);
     }
 
 
@@ -150,20 +162,38 @@ public class LearningBDMAP extends AppCompatActivity {
             MyLocationData locData = new MyLocationData.Builder()
                     .accuracy(location.getRadius())
                             // 此处设置开发者获取到的方向信息，顺时针0-360
-                    .direction(100).latitude(location.getLatitude())
-                    .longitude(location.getLongitude()).build();
+                    .direction(100)
+                    .latitude(location.getLatitude())
+                    .longitude(location.getLongitude())
+                    .build();
 // 设置定位数据
             mBaiduMap.setMyLocationData(locData);
 
-            LatLng center = new LatLng(location.getLongitude(),location.getLatitude());
 
+            //中心移动到当前位置
+            center = new LatLng(location.getLatitude(),location.getLongitude());
+            mvCenter();
+
+
+
+/*
+            //设定中心点坐标
+            LatLng cenpt =  new LatLng(30.663791,104.07281);
+//定义地图状态
             MapStatus mMapStatus = new MapStatus.Builder()
-                    .target(center)
-                    .zoom(16)
-                    .overlook(-45)
+                    .target(cenpt)
+                    .zoom(12)
                     .build();
+//定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+
             MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-            mBaiduMap.setMapStatus(mMapStatusUpdate);
+//改变地图状态
+            mBaiduMap.setMapStatus(mMapStatusUpdate);*/
+
+
+
+
+
 
 
         }

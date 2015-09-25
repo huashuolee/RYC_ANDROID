@@ -1,11 +1,10 @@
 package com.goafter.transformerstoolkit.utility;
 
-import android.app.Activity;
+
 import android.hardware.Camera;
-import android.net.Uri;
+import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,11 @@ import android.widget.Button;
 
 import com.goafter.transformerstoolkit.R;
 
-import java.util.List;
+
 
 
 public class Torch extends Fragment {
+
     Camera camera;
     static Camera.Parameters parameters;
 

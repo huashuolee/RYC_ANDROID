@@ -60,72 +60,16 @@ public class Weather extends Fragment {
         btnGetData.setOnClickListener(new GetWeatherData());
         tvLocation = (TextView) view.findViewById(R.id.tvLocation);
         tvLocation.setText("查询ing　");
-        //获取当前位置
-        mLocationClient = new LocationClient(getActivity());
-        initConfig();
-        mylistener = new myLocationListener();
-        mLocationClient.registerLocationListener(mylistener);
-        //mLocationClient.start();
-        //自动查询天气
-        //queryWeather();
+        //获取当前位置, 以及天气
+        getLocation();
         return view;
     }
 
-    public void initConfig() {
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
-        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span = 0;
-        option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
-        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
-        option.setOpenGps(true);//可选，默认false,设置是否使用gps
-        option.setLocationNotify(true);//可选，默认false，设置是否当gps有效时按照1S1次频率输出GPS结果
-        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
-        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
-        option.setIgnoreKillProcess(false);//可选，默认false，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认杀死
-        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
-        option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
-        mLocationClient.setLocOption(option);
-
-    }
-
-    public void queryWeather() {
-        mLocationClient.start();
-        StringBuffer sb = new StringBuffer();
-        sb.append(locAddrStr);
-        while (true) {
-            if (locAddrStr != null) {
-                Log.e("2222222", sb.toString());
-                String sublocDistrict = locDistrict.substring(0, locDistrict.indexOf("区"));
-                String city = "city=" + sublocDistrict;
-                update(UrlConst.WEATHER + city);
-                tvLocation.setText(locDistrict);
-
-                mLocationClient.stop();
-                break;
-            }else{
-                Log.e("33333333","waiting location……");
-            }
-        }
-
-
-    }
-
-
-
-    public void safeStart() {
-        if (mLocationClient != null) {
-            mLocationClient.stop();
-
-        } else {
-            mLocationClient.start();
-        }
-    }
 
     class GetWeatherData implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            queryWeather();
+            getLocation();
 
 
         }
@@ -147,10 +91,70 @@ public class Weather extends Fragment {
             locDistrict = bdLocation.getDistrict();
             locDescribe = bdLocation.getLocationDescribe();
             locAddrStr = bdLocation.getAddrStr();
+            if (mLocationClient.isStarted()) {
+                mLocationClient.stop();
+            }
 
+            queryWeather();
+        }
+
+    }
+
+    public void getLocation() {
+        mLocationClient = new LocationClient(getActivity());
+        initConfig();
+        mylistener = new myLocationListener();
+        mLocationClient.registerLocationListener(mylistener);
+        safeStart();
+
+    }
+
+    public void initConfig() {
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
+        int span = 0;
+        option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
+        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
+        option.setOpenGps(true);//可选，默认false,设置是否使用gps
+        option.setLocationNotify(true);//可选，默认false，设置是否当gps有效时按照1S1次频率输出GPS结果
+        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+        option.setIgnoreKillProcess(false);//可选，默认false，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认杀死
+        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
+        option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
+        mLocationClient.setLocOption(option);
+
+    }
+
+    public void queryWeather() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(locAddrStr);
+
+        if (locAddrStr != null) {
+            Log.e("2222222", sb.toString());
+            String sublocDistrict = locDistrict.substring(0, locDistrict.indexOf("区"));
+            String city = "city=" + sublocDistrict;
+            update(UrlConst.WEATHER + city);
+            tvLocation.setText(locDistrict);
+
+        } else {
+            Log.e("33333333", "waiting location……");
+            Toast.makeText(getActivity(), "刷新失败，请重试", Toast.LENGTH_LONG);
 
         }
 
+
+    }
+
+    public void safeStart() {
+        if (mLocationClient.isStarted()) {
+            mLocationClient.stop();
+
+        } else {
+            mLocationClient.start();
+
+        }
     }
 
     private void update(String url) {
@@ -228,5 +232,8 @@ public class Weather extends Fragment {
 
     }
 
-
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
 }
