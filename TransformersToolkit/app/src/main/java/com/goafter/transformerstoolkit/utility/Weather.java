@@ -1,6 +1,7 @@
 package com.goafter.transformerstoolkit.utility;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -25,6 +26,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -134,8 +136,14 @@ public class Weather extends Fragment {
         if (locAddrStr != null) {
             Log.e("2222222", sb.toString());
             String sublocDistrict = locDistrict.substring(0, locDistrict.indexOf("区"));
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                sublocDistrict = swCharset(sublocDistrict);
+            }
+            //
             String city = "city=" + sublocDistrict;
+
             update(UrlConst.WEATHER + city);
+            Log.e("444444444444", UrlConst.WEATHER + city);
             tvLocation.setText(locDistrict);
 
         } else {
@@ -174,12 +182,14 @@ public class Weather extends Fragment {
                     while ((line = br.readLine()) != null) {
                         builder.append(line);
                     }
+                    Log.e("3413123123131231", builder.toString());
                     return builder;
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 return builder;
             }
 
@@ -230,6 +240,22 @@ public class Weather extends Fragment {
             }
         }.execute(url);
 
+    }
+
+
+    //靠，4.4 UTF-8 天气city=北京，不支持。需要转码成ISO8859-1。但是5.1
+    public String swCharset(String str) {
+
+        try {
+            byte[] tmp = str.getBytes("utf-8");
+            str = new String(tmp, "ISO8859-1");
+            return str;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+        return str;
     }
 
     @Override
