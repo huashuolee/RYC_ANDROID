@@ -17,4 +17,5 @@
     <string name="action_example">Example action</string>
     <string name="title_activity_baidumap">BAIDUMAP</string>
     <string name="title_activity_learning_bdmap">LearningBDMAP</string>
+    <string name="title_activity_ttplayer">TTPlayer</string>
 </resources>
