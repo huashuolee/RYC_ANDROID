@@ -91,11 +91,6 @@
         <activity
             android:name=".BAIDUMAP"
             android:label="@string/title_activity_baidumap" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -105,6 +100,11 @@
         <activity
             android:name=".LearningBDMAP"
             android:label="@string/title_activity_learning_bdmap" >
+        </activity>
+        <activity
+            android:name=".VideoPlayer"
+            android:label="@string/title_activity_video_player"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 5:
                     fragment = new MyBaiduMap();
+                case 6:
+                    fragment = new MePlayer();
                 default:
                     break;
 
