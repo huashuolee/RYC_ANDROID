@@ -1,83 +1,63 @@
 package com.goafter.testtemp;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
 public class TTPlayer extends AppCompatActivity {
 
-    MediaPlayer mp;
     Button btnPlay, btnPause, btnStop;
-    SurfaceHolder holder;
-    SurfaceView videoSurface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ttplayer);
-        btnPlay = (Button)findViewById(R.id.btnPlay);
-        btnPause = (Button)findViewById(R.id.btnPause);
-        btnStop = (Button)findViewById(R.id.btnStop);
-        videoSurface = (SurfaceView)findViewById(R.id.videoSurface);
-        holder = videoSurface.getHolder();
-        holder.addCallback(new control());
+        btnPlay = (Button) findViewById(R.id.btnPlay);
+        btnPause = (Button) findViewById(R.id.btnPause);
+        btnStop = (Button) findViewById(R.id.btnStop);
         btnPlay.setOnClickListener(new myclicklistener());
         btnPause.setOnClickListener(new myclicklistener());
         btnStop.setOnClickListener(new myclicklistener());
 
     }
 
-    class myclicklistener implements View.OnClickListener{
+    class myclicklistener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            System.err.println("555555555555");
+
+            switch (v.getId()) {
                 case R.id.btnPlay:
-                    mp.start();
+                    System.err.println("11111111");
+                    Intent intent = new Intent(TTPlayer.this, PlayWindow.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("uri","file:///sdcard/video1.mp4");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    System.err.println("2222222222");
                     break;
                 case R.id.btnPause:
-                    mp.pause();
-                    break;
-                case R.id.btnStop:
-                    mp.stop();
-                    mp.reset();
-                    mp.release();
+                    System.err.println("3333333333333333");
+                    Intent intentv = new Intent(TTPlayer.this, PlayWindowVideoV.class);
+                    Bundle bundlev = new Bundle();
+                    bundlev.putString("uri","file:///sdcard/video1.mp4");
+                    intentv.putExtras(bundlev);
+                    startActivity(intentv);
+                    System.err.println("44444444444444444444");
                     break;
                 default:
                     break;
+
+
             }
-        }
-    }
 
-
-    class control implements SurfaceHolder.Callback{
-        @Override
-        public void surfaceCreated(SurfaceHolder holder) {
-            Uri uri = Uri.parse("file:///sdcard/video.mp4");
-            mp = MediaPlayer.create(getApplication(),uri);
-            mp.setDisplay(holder);
-
-
-        }
-
-        @Override
-        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-        }
-
-        @Override
-        public void surfaceDestroyed(SurfaceHolder holder) {
 
         }
     }
-
-
 
 
     @Override

@@ -56,6 +56,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name = "android.permission.DISABLE_KEYGUARD"/>
 
     <application
         android:allowBackup="true"
@@ -105,11 +106,6 @@
             android:name=".VideoPlayer"
             android:label="@string/title_activity_video_player"
             android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".TTPlayer"
@@ -119,6 +115,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".PlayWindow"
+            android:label="@string/title_activity_play_window"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity android:name=".PlayWindowVideoV"
+            android:screenOrientation="landscape"
+            >
+
         </activity>
     </application>
 

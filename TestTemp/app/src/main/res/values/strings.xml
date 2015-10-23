@@ -19,4 +19,5 @@
     <string name="title_activity_learning_bdmap">LearningBDMAP</string>
     <string name="title_activity_ttplayer">TTPlayer</string>
     <string name="title_activity_video_player">VideoPlayer</string>
+    <string name="title_activity_play_window">PlayWindow</string>
 </resources>
