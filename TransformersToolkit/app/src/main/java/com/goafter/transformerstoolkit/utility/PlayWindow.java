@@ -6,9 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.Toast;
-
 import com.goafter.transformerstoolkit.R;
-
 import java.io.File;
 
 public class PlayWindow extends AppCompatActivity {
@@ -20,8 +18,6 @@ public class PlayWindow extends AppCompatActivity {
         setContentView(R.layout.activity_play_window);
         vView = (CustomVideoView) findViewById(R.id.vView);
         lnMeplayer();
-
-
 
     }
 
@@ -42,14 +38,11 @@ public class PlayWindow extends AppCompatActivity {
         });
         Toast.makeText(this, "正在播放 "+file.getName(),Toast.LENGTH_SHORT).show();
         vView.start();
-
-
-
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(this,"播放完毕", Toast.LENGTH_SHORT).show();
     }
 }

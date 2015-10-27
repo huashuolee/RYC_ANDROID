@@ -31,7 +31,7 @@ public class MyBaiduMap extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_baidu_map, container, false);
-        SDKInitializer.initialize(getActivity());
+        //SDKInitializer.initialize(getActivity());
 
         return view;
     }
