@@ -2,7 +2,6 @@ package com.goafter.transformerstoolkit.utility;
 
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -26,11 +24,12 @@ import com.goafter.transformerstoolkit.inadvance.CrtDB;
  * A simple {@link Fragment} subclass.
  */
 public class MeCall extends Fragment {
-    Button btnCall,btnSMS,btnAdd;
-    EditText etName,etNumber;
+    Button btnCall, btnSMS, btnAdd;
+    EditText etName, etNumber;
     CrtDB db;
     ListView lvDisplay;
     SimpleCursorAdapter adapter;
+    SQLiteDatabase dbWrite, dbRead;
 
 
     public MeCall() {
@@ -50,7 +49,9 @@ public class MeCall extends Fragment {
         etNumber = (EditText) view.findViewById(R.id.etNum);
         lvDisplay = (ListView) view.findViewById(R.id.lvDispaly);
         db = new CrtDB(getActivity());
-        displayall();
+        adapter = new SimpleCursorAdapter(getActivity(), R.layout.cell_for_me_call, null, new String[]{"name", "number"}, new int[]{R.id.tvName, R.id.tvNumber});
+        lvDisplay.setAdapter(adapter);
+        //displayall();
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +59,7 @@ public class MeCall extends Fragment {
             public void onClick(View v) {
                 saveContacts();
                 displayall();
+
             }
         });
 
@@ -79,45 +81,39 @@ public class MeCall extends Fragment {
         return view;
     }
 
-    private void makeCall(){
+    private void makeCall() {
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:10010"));
         startActivity(intent);
     }
 
-    private void makeSMS(){
-        Intent intent = new Intent(Intent.ACTION_SENDTO,Uri.parse("smsto:10086"));
-        intent.putExtra("sms_body","ye");
+    private void makeSMS() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:10086"));
+        intent.putExtra("sms_body", "ye");
         startActivity(intent);
     }
 
-    private void saveContacts(){
-        SQLiteDatabase dbWrite = db.getWritableDatabase();
+    public void saveContacts() {
+        dbWrite = db.getWritableDatabase();
         ContentValues cv = new ContentValues();
         String name = etName.getText().toString();
         String number = etNumber.getText().toString();
-        cv.put("name",name);
+        cv.put("name", name);
         cv.put("number", number);
         dbWrite.insert("user", null, cv);
         dbWrite.close();
 
     }
 
-    private void displayall(){
-        SQLiteDatabase dbRead = db.getReadableDatabase();
+    public void displayall() {
+        dbRead = db.getReadableDatabase();
         //第二个参数 new String[]{"_id","name", "sex"}, 可以用null,每次查询时必须带"_id"，否则SimpleCursorAdapter 会报错。
-        Cursor c = dbRead.query("user", new String[]{"_id","name", "number"}, null, null, null, null, null);
-        adapter = new SimpleCursorAdapter(getActivity(),R.layout.cell_for_me_call,c,new String[]{"name","number"},new int[]{R.id.tvName, R.id.tvNumber});
+        Cursor c = dbRead.query("user", new String[]{"_id", "name", "number"}, null, null, null, null, null);
         adapter.changeCursor(c);
-        lvDisplay.setAdapter(adapter);
-        Log.e("===============",c.getString(c.getColumnIndex("name")));
-        Log.e("===============",c.getString(c.getColumnIndex("number")));
+       }
+
+    public void refleshListView() {
 
     }
-
-
-
-
-
 
 
 }
