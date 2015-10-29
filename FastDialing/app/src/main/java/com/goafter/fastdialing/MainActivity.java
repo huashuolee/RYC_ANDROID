@@ -51,8 +51,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(MainActivity.this,"12345678",Toast.LENGTH_SHORT).show();
-                initPopuptWindow();
-                mPopupWindow.showAsDropDown(view);
+                Intent intent = new Intent(MainActivity.this, Pop.class);
+                tvName = (TextView) view.findViewById(R.id.tvName);
+                tvNumber = (TextView) view.findViewById(R.id.tvNumber);
+                Bundle bundle = new Bundle();
+                bundle.putString("tvName",tvName.getText().toString());
+                bundle.putString("tvNumber",tvNumber.getText().toString());
+                intent.putExtras(bundle);
+                startActivity(intent);
 
 
             }
@@ -93,12 +99,4 @@ public class MainActivity extends AppCompatActivity {
         adapter.changeCursor(c);
     }
 
-    public void initPopuptWindow() {
-        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-        View popupWindow = layoutInflater.inflate(R.layout.popup_window, null);
-        mScreenWidth = getWindowManager().getDefaultDisplay().getWidth();
-        mScreenHeight = getWindowManager().getDefaultDisplay().getHeight();
-        mPopupWindow = new PopupWindow(popupWindow, mScreenWidth, 500);
-
-    }
 }
