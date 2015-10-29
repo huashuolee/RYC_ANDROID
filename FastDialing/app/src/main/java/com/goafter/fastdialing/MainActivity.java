@@ -7,12 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -30,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
     SimpleCursorAdapter adapter;
     SQLiteDatabase dbRead, dbWrite;
     TextView tvName,tvNumber;
+    PopupWindow mPopupWindow;
+    int mScreenWidth;
+    int mScreenHeight;
+    int mPopupWindowWidth;
+    int mPopupWindowHeight;
 
 
     @Override
@@ -43,7 +50,10 @@ public class MainActivity extends AppCompatActivity {
         lvDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "1213123123", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"12345678",Toast.LENGTH_SHORT).show();
+                initPopuptWindow();
+                mPopupWindow.showAsDropDown(view);
+
 
             }
         });
@@ -81,7 +91,14 @@ public class MainActivity extends AppCompatActivity {
         dbRead = db.getReadableDatabase();
         Cursor c = dbRead.query("user", new String[]{"_id", "name", "number"}, null, null, null, null, null, null);
         adapter.changeCursor(c);
+    }
 
+    public void initPopuptWindow() {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        View popupWindow = layoutInflater.inflate(R.layout.popup_window, null);
+        mScreenWidth = getWindowManager().getDefaultDisplay().getWidth();
+        mScreenHeight = getWindowManager().getDefaultDisplay().getHeight();
+        mPopupWindow = new PopupWindow(popupWindow, mScreenWidth, 500);
 
     }
 }
