@@ -24,7 +24,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     CrtDB db;
     EditText etname, etnumber;
-    Button btnAdd, btnCall, btnSMS;
+    Button btnAdd;
     Cursor c;
     ListView lvDisplay;
     SimpleCursorAdapter adapter;
@@ -53,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tvName);
         tvNumber = (TextView) findViewById(R.id.tvNumber);
         btnAdd = (Button) findViewById(R.id.btnAdd);
-        btnCall = (Button) findViewById(R.id.btnCall);
-        btnSMS = (Button) findViewById(R.id.btnSMS);
+
 
 
         refresh();

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants" >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -38,20 +37,6 @@
             </LinearLayout>
         </LinearLayout>
 
-
-
-        <Button
-            android:id="@+id/btnSMS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SMS"
-            android:layout_alignParentRight="true"/>
-        <Button
-            android:id="@+id/btnCall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/btnSMS"
-            android:text="CALL" />
     </RelativeLayout>
 
 </LinearLayout>
