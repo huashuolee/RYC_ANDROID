@@ -33,6 +33,8 @@ public class MainActivity extends ListActivity {
         btnRead.setOnClickListener(new ReadData());
         result = (TextView) findViewById(R.id.result);
         db = new Db(this);
+        adapter = new SimpleCursorAdapter(MainActivity.this,R.layout.user_list_cell,null,new String[]{"name","sex"},new int[]{R.id.tvName, R.id.tvSex});
+        setListAdapter(adapter);
 
 
     }
@@ -50,8 +52,8 @@ public class MainActivity extends ListActivity {
             cv.put("name", "li si");
             cv.put("sex", "male");
             dbWrite.insert("user", null, cv);
-
             dbWrite.close();
+            refreshListView();
 
         }
     }
@@ -59,26 +61,25 @@ public class MainActivity extends ListActivity {
     private class ReadData implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-/*            SQLiteDatabase dbRead = db.getReadableDatabase();
+            refreshListView();
+        }
+    }
+
+    public void refreshListView(){
+        /*            SQLiteDatabase dbRead = db.getReadableDatabase();
             Cursor c = dbRead.query("user", new String[]{"name", "sex"}, null, null, null, null, null);
             while (c.moveToNext()){
                 String name = c.getString(c.getColumnIndex("name"));
                 String sex = c.getString(c.getColumnIndex("sex"));
                 Log.e("TEST", "NAME= " + name + " sex=" + sex);
             }*/
-            //全部查询
-           // db.getReadableDatabase().query("user",null,null,null,null,null,null);
-            SQLiteDatabase dbRead = db.getReadableDatabase();
-            //第二个参数 new String[]{"_id","name", "sex"}, 可以用null,每次查询时必须带"_id"，否则SimpleCursorAdapter 会报错。
-            Cursor c = dbRead.query("user", new String[]{"_id","name", "sex"}, null, null, null, null, null);
+        //全部查询
+        // db.getReadableDatabase().query("user",null,null,null,null,null,null);
+        SQLiteDatabase dbRead = db.getReadableDatabase();
+        //第二个参数 new String[]{"_id","name", "sex"}, 可以用null,每次查询时必须带"_id"，否则SimpleCursorAdapter 会报错。
+        Cursor c = dbRead.query("user", new String[]{"_id","name", "sex"}, null, null, null, null, null);
+        adapter.changeCursor(c);
 
-
-            adapter = new SimpleCursorAdapter(MainActivity.this,R.layout.user_list_cell,c,new String[]{"name","sex"},new int[]{R.id.tvName, R.id.tvSex});
-            adapter.changeCursor(c);
-            setListAdapter(adapter);
-
-
-        }
     }
 
     @Override

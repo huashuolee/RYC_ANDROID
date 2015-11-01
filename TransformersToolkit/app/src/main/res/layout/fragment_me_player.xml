@@ -9,14 +9,7 @@
     android:layout_height="wrap_content"
     android:text="play"
     android:id="@+id/btnPlay"/>
-<!--    <VideoView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/vView"/>-->
 
-    <SurfaceView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/playView"/>
+
 
 </LinearLayout>

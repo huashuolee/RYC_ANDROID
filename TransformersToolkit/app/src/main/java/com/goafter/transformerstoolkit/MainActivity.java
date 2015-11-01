@@ -59,8 +59,12 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 5:
                     fragment = new MyBaiduMap();
+                    break;
                 case 6:
                     fragment = new MePlayer();
+                    break;
+                case 7:
+                    fragment = new MeCall();
                 default:
                     break;
 
