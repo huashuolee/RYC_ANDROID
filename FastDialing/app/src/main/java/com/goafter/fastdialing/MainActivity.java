@@ -20,8 +20,6 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     CrtDB db;
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     ListView lvDisplay;
     SimpleCursorAdapter adapter;
     SQLiteDatabase dbRead, dbWrite;
-    TextView tvName,tvNumber;
+    TextView tvName, tvNumber;
     PopupWindow mPopupWindow;
     int mScreenWidth;
     int mScreenHeight;
@@ -50,17 +48,15 @@ public class MainActivity extends AppCompatActivity {
         lvDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this,"12345678",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "12345678", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, Pop.class);
                 tvName = (TextView) view.findViewById(R.id.tvName);
                 tvNumber = (TextView) view.findViewById(R.id.tvNumber);
                 Bundle bundle = new Bundle();
-                bundle.putString("tvName",tvName.getText().toString());
-                bundle.putString("tvNumber",tvNumber.getText().toString());
+                bundle.putString("tvName", tvName.getText().toString());
+                bundle.putString("tvNumber", tvNumber.getText().toString());
                 intent.putExtras(bundle);
                 startActivity(intent);
-
-
             }
         });
 
@@ -69,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tvName);
         tvNumber = (TextView) findViewById(R.id.tvNumber);
         btnAdd = (Button) findViewById(R.id.btnAdd);
-
 
 
         refresh();
