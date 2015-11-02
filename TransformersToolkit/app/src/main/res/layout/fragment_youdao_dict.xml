@@ -8,27 +8,25 @@
 
     <TextView android:text="@string/dict_title" android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:id="@+id/btnSearch"
-            android:layout_alignParentRight="true"
-            android:text="SEARCH"/>
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/btnSearch"
-            android:layout_alignParentTop="true"
-            android:id="@+id/etWord" />
+            android:id="@+id/etWord"
+			android:layout_weight="1"/>
+	    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSearch"
+            android:text="SEARCH"/>
 
 
-    </RelativeLayout>
+    </LinearLayout>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

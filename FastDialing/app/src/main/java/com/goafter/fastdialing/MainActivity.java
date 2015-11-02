@@ -4,24 +4,18 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     CrtDB db;
@@ -31,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     ListView lvDisplay;
     SimpleCursorAdapter adapter;
     SQLiteDatabase dbRead, dbWrite;
-    TextView tvName,tvNumber;
+    TextView tvName, tvNumber;
     PopupWindow mPopupWindow;
     int mScreenWidth;
     int mScreenHeight;
@@ -50,17 +44,15 @@ public class MainActivity extends AppCompatActivity {
         lvDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this,"12345678",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "12345678", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, Pop.class);
                 tvName = (TextView) view.findViewById(R.id.tvName);
                 tvNumber = (TextView) view.findViewById(R.id.tvNumber);
                 Bundle bundle = new Bundle();
-                bundle.putString("tvName",tvName.getText().toString());
-                bundle.putString("tvNumber",tvNumber.getText().toString());
+                bundle.putString("tvName", tvName.getText().toString());
+                bundle.putString("tvNumber", tvNumber.getText().toString());
                 intent.putExtras(bundle);
                 startActivity(intent);
-
-
             }
         });
 
@@ -69,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tvName);
         tvNumber = (TextView) findViewById(R.id.tvNumber);
         btnAdd = (Button) findViewById(R.id.btnAdd);
-
 
 
         refresh();
