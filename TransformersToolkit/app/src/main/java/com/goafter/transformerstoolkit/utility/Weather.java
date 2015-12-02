@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ public class Weather extends Fragment {
     LocationClient mLocationClient;
     BDLocationListener mylistener;
     String locCity, locAddrStr, locDistrict, locDescribe;
-
+    MyLogUtil logUtil = new MyLogUtil();
 
     public Weather() {
         // Required empty public constructor
@@ -48,7 +47,6 @@ public class Weather extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -88,7 +86,7 @@ public class Weather extends Fragment {
             sb.append("getLocationDescribe " + bdLocation.getLocationDescribe() + "\n");
             sb.append("getAddrStr " + bdLocation.getAddrStr() + "\n");
             sb.append("getNetworkLocationType " + bdLocation.getNetworkLocationType() + "\n");
-            Log.e("Transformers Tools", sb.toString());
+            logUtil.e("Transformers Tools", sb.toString());
             locCity = bdLocation.getCity();
             locDistrict = bdLocation.getDistrict();
             locDescribe = bdLocation.getLocationDescribe();
@@ -134,7 +132,7 @@ public class Weather extends Fragment {
         sb.append(locAddrStr);
 
         if (locAddrStr != null) {
-            Log.e("2222222", sb.toString());
+            logUtil.e("2222222", sb.toString());
             String sublocDistrict = locDistrict.substring(0, locDistrict.indexOf("区"));
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 sublocDistrict = swCharset(sublocDistrict);
@@ -143,11 +141,11 @@ public class Weather extends Fragment {
             String city = "city=" + sublocDistrict;
 
             update(UrlConst.WEATHER + city);
-            Log.e("444444444444", UrlConst.WEATHER + city);
+            logUtil.e("444444444444", UrlConst.WEATHER + city);
             tvLocation.setText(locDistrict);
 
         } else {
-            Log.e("33333333", "waiting location……");
+            logUtil.e("33333333", "waiting location……");
             Toast.makeText(getActivity(), "刷新失败，请重试", Toast.LENGTH_LONG);
 
         }
@@ -182,7 +180,7 @@ public class Weather extends Fragment {
                     while ((line = br.readLine()) != null) {
                         builder.append(line);
                     }
-                    Log.e("3413123123131231", builder.toString());
+                    logUtil.e("3413123123131231", builder.toString());
                     return builder;
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -211,9 +209,14 @@ public class Weather extends Fragment {
                     JSONObject jsonObject = new JSONObject(builder.toString());
                     //JSONObject aqi = jsonObject.getJSONObject("aqi");
                     JSONArray array = jsonObject.getJSONArray("HeWeather data service 3.0");
+                    logUtil.e("All",array.toString());
                     JSONObject allData = array.getJSONObject(0);
+
+                    /*JSONObject aqi = allData.getJSONObject("aqi");
+                    String qly = aqi.getJSONObject("city").getString("qly");*/
+
+
                     JSONObject now = allData.getJSONObject("now");
-                    Log.e("444444", allData.getString("basic"));
                     String fl = now.getString("fl");
                     String txt = now.getJSONObject("cond").getString("txt");
                     String direction_wind = now.getJSONObject("wind").getString("dir");
