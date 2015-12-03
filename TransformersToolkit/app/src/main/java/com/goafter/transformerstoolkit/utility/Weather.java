@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -39,6 +45,7 @@ public class Weather extends Fragment {
     BDLocationListener mylistener;
     String locCity, locAddrStr, locDistrict, locDescribe;
     MyLogUtil logUtil = new MyLogUtil();
+    public static final String TAG = "=============================";
 
     public Weather() {
         // Required empty public constructor
@@ -95,7 +102,7 @@ public class Weather extends Fragment {
                 mLocationClient.stop();
             }
 
-            queryWeather();
+            queryWeatherBaiduAPI();
         }
 
     }
@@ -127,7 +134,7 @@ public class Weather extends Fragment {
 
     }
 
-    public void queryWeather() {
+    public void queryWeatherBaiduAPI() {
         StringBuffer sb = new StringBuffer();
         sb.append(locAddrStr);
 
@@ -180,7 +187,14 @@ public class Weather extends Fragment {
                     while ((line = br.readLine()) != null) {
                         builder.append(line);
                     }
-                    logUtil.e("3413123123131231", builder.toString());
+                    logUtil.e(TAG, builder.toString());
+                    File file = new File(Environment.getExternalStorageDirectory().getPath()+"/weather.txt");
+                    logUtil.e(TAG, Environment.getExternalStorageDirectory().getPath());
+                    FileOutputStream fos = new FileOutputStream(file);
+                    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+                    bw.write(builder.toString());
+                    bw.close();
+                    fos.close();
                     return builder;
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
