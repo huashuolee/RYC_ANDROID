@@ -38,8 +38,8 @@ import java.net.URLConnection;
 
 
 public class Weather extends Fragment {
-    StringBuilder builder;
-    TextView tvResult;
+    StringBuilder builder,builderaqi;
+    TextView tvResult,tvAQI;
     TextView tvLocation;
     LocationClient mLocationClient;
     BDLocationListener mylistener;
@@ -64,6 +64,7 @@ public class Weather extends Fragment {
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
         Button btnGetData = (Button) view.findViewById(R.id.btnGetData);
         tvResult = (TextView) view.findViewById(R.id.tvResult);
+        tvAQI = (TextView) view.findViewById(R.id.tvAQI);
         btnGetData.setOnClickListener(new GetWeatherData());
         tvLocation = (TextView) view.findViewById(R.id.tvLocation);
         tvLocation.setText("查询ing　");
@@ -139,26 +140,28 @@ public class Weather extends Fragment {
         sb.append(locAddrStr);
 
         if (locAddrStr != null) {
-            logUtil.e("2222222", sb.toString());
             String sublocDistrict = locDistrict.substring(0, locDistrict.indexOf("区"));
+            String city = locCity.substring(0, locCity.indexOf("市"));
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 sublocDistrict = swCharset(sublocDistrict);
+                city = swCharset(city);
             }
             //
-            String city = "city=" + sublocDistrict;
+            String url = UrlConst.WEATHER + "city=" + sublocDistrict;
+            String url1 = UrlConst.WEATHER + "city=" + city;
+            logUtil.e(TAG, url1);
+            update(url);
+            tvLocation.setText(locDescribe);
 
-            update(UrlConst.WEATHER + city);
-            logUtil.e("444444444444", UrlConst.WEATHER + city);
-            tvLocation.setText(locDistrict);
-
+            updateaqi(url1);
         } else {
-            logUtil.e("33333333", "waiting location……");
             Toast.makeText(getActivity(), "刷新失败，请重试", Toast.LENGTH_LONG);
 
         }
 
 
     }
+
 
     public void safeStart() {
         if (mLocationClient.isStarted()) {
@@ -187,9 +190,7 @@ public class Weather extends Fragment {
                     while ((line = br.readLine()) != null) {
                         builder.append(line);
                     }
-                    logUtil.e(TAG, builder.toString());
                     File file = new File(Environment.getExternalStorageDirectory().getPath()+"/weather.txt");
-                    logUtil.e(TAG, Environment.getExternalStorageDirectory().getPath());
                     FileOutputStream fos = new FileOutputStream(file);
                     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
                     bw.write(builder.toString());
@@ -221,22 +222,15 @@ public class Weather extends Fragment {
                 try {
 
                     JSONObject jsonObject = new JSONObject(builder.toString());
-                    //JSONObject aqi = jsonObject.getJSONObject("aqi");
                     JSONArray array = jsonObject.getJSONArray("HeWeather data service 3.0");
-                    logUtil.e("All",array.toString());
                     JSONObject allData = array.getJSONObject(0);
-
-                    /*JSONObject aqi = allData.getJSONObject("aqi");
-                    String qly = aqi.getJSONObject("city").getString("qly");*/
-
-
                     JSONObject now = allData.getJSONObject("now");
                     String fl = now.getString("fl");
                     String txt = now.getJSONObject("cond").getString("txt");
                     String direction_wind = now.getJSONObject("wind").getString("dir");
                     String sc = now.getJSONObject("wind").getString("sc");
                     String sug_drsg = allData.getJSONObject("suggestion").getJSONObject("drsg").getString("txt");
-                    String[] display = new String[]{"体感温度：" + fl + "摄氏度", txt, direction_wind + ": " + sc, sug_drsg};
+                    String[] display = new String[]{"城市：" + locCity , "体感温度：" + fl + "摄氏度", txt, direction_wind + ": " + sc, sug_drsg};
                     String result = "";
                     for (String i : display) {
                         result += i + "\r\n";
@@ -259,7 +253,63 @@ public class Weather extends Fragment {
 
     }
 
+    private void updateaqi(String url) {
+        new AsyncTask<String, Void, StringBuilder>() {
+            protected StringBuilder doInBackground(String... params) {
 
+                try {
+                    URL url = new URL(params[0]);
+                    URLConnection connection = url.openConnection();
+                    connection.setRequestProperty("apikey", UrlConst.BAIDU_APIKEY);
+                    InputStream is = connection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");
+                    BufferedReader br = new BufferedReader(isr);
+                    builderaqi = new StringBuilder();
+                    String line = null;
+
+                    while ((line = br.readLine()) != null) {
+                        builderaqi.append(line);
+                    }
+                    return builderaqi;
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return builderaqi;
+            }
+
+            @Override
+            protected void onPostExecute(StringBuilder stringBuilder) {
+                super.onPostExecute(stringBuilder);
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(builderaqi.toString());
+                    JSONArray array = jsonObject.getJSONArray("HeWeather data service 3.0");
+                    JSONObject allData = array.getJSONObject(0);
+                    JSONObject aqi = allData.getJSONObject("aqi").getJSONObject("city");
+                    String qlty = aqi.getString("qlty");
+                    String pm10 = aqi.getString("pm10");
+                    String pm25 = aqi.getString("pm25");
+                    String so2 = aqi.getString("so2");
+                    String[] display = new String[]{"空气质量: " + qlty,  "PM2.5: " + pm25};
+                    String result = "";
+                    for (String i : display) {
+                        result += i + "\r\n";
+                    }
+                    tvAQI.setText(result);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }.execute(url);
+
+    }
     //靠，4.4 UTF-8 天气city=北京，不支持。需要转码成ISO8859-1。但是5.1
     public String swCharset(String str) {
 
