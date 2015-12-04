@@ -5,7 +5,6 @@ import android.app.ListFragment;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.goafter.transformerstoolkit.R;
@@ -22,24 +21,29 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 
 public class FileManager extends ListFragment {
 
 
     private String ROOTPATH = File.separator;
+    private String SDPATH = Environment.getExternalStorageDirectory().getPath();
     //存储文件名称
     private ArrayList<String> names = null;
     //存储文件路径
     private ArrayList<String> paths = null;
+
+    private static final String TAG = "=============";
+    private static final MyLogUtil logUtil = new MyLogUtil();
+    private TextView tvFilePath;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_file_manager, container, false);
-        showFileDir(ROOTPATH);
+        tvFilePath = (TextView) view.findViewById(R.id.tvFilePath);
+        showFileDir(SDPATH);
        // SimpleAdapter adapter = new SimpleAdapter(getActivity(),getData(),R.layout.file_manager_cell,new String[]{"",""},new int[]{R.id.imgfile,R.id.tvfile});
 
 /*        TextView tv = (TextView) view.findViewById(R.id.tvDeving);*/
@@ -85,18 +89,18 @@ public class FileManager extends ListFragment {
         }
 
 
-        Log.e("111111", names.toString());
-        Log.e("111111",paths.toString());
+        logUtil.e(TAG,names.toString());
         list.add("test");
 
-        return  paths;
+        return  names;
 
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         String path = paths.get(position);
-        Log.e("22222222",path);
+        tvFilePath.setText(path);
+        logUtil.e(TAG,path);
         File file = new File(path);
         // 文件存在并可读
         if (file.exists() && file.canRead()){
