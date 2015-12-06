@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new Torch();
                     break;
                 case 5:
-                    fragment = new MyBaiduMap();
+                    fragment = new TBarCode();
                     break;
                 case 6:
                     fragment = new MePlayer();

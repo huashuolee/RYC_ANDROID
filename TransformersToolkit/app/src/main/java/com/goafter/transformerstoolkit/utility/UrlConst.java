@@ -10,9 +10,15 @@ public interface UrlConst {
     public static final String YOUDAOPRON ="http://dict.youdao.com/dictvoice?audio=deprecated";
 
     //Taobao 号码归属地
-    //天气预报
+    //百度天气API
     public static final String WEATHER = "http://apis.baidu.com/heweather/weather/free?";
     public static final String BAIDU_APIKEY = "d39472822dbd3e7e4cd9ed6337999b34";
+
+    //和风API：
+    // https://api.heweather.com/x3/weather?city=beijing&key=45a96cc16a874d4aacd2d6cd4aa136d5
+    public static final String HEFENG_WEATHER = "https://api.heweather.com/x3/weather?";
+    public static final String HEFEING_APIKEY = "45a96cc16a874d4aacd2d6cd4aa136d5";
+
 
     //ip查询
     public static final String IP_LOCATION = "http://apis.baidu.com/apistore/iplookupservice/iplookup?";
