@@ -3,30 +3,10 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="E:\tools\Android\Android_Studio\gradle\gradle-2.4" />
         <option name="gradleJvm" value="1.8" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/Browser" />
-            <option value="$PROJECT_DIR$/actionbar" />
-            <option value="$PROJECT_DIR$/andriodDream" />
-            <option value="$PROJECT_DIR$/camTestActivity" />
-            <option value="$PROJECT_DIR$/camera.huashuo" />
-            <option value="$PROJECT_DIR$/camera2.huashuo" />
-            <option value="$PROJECT_DIR$/getmac" />
-            <option value="$PROJECT_DIR$/iReader" />
-            <option value="$PROJECT_DIR$/learning_bitmap" />
-            <option value="$PROJECT_DIR$/mytxt" />
-            <option value="$PROJECT_DIR$/mytxtreader" />
-            <option value="$PROJECT_DIR$/mytxttmp1" />
-            <option value="$PROJECT_DIR$/photoIntentActivity" />
-            <option value="$PROJECT_DIR$/readtxt1" />
-            <option value="$PROJECT_DIR$/record" />
-            <option value="$PROJECT_DIR$/settingdaemo" />
-          </set>
-        </option>
       </GradleProjectSettings>
     </option>
   </component>
