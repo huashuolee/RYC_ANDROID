@@ -23,16 +23,7 @@
                 android:id="@+id/preButton"
                 android:text="pre"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="start"
-                android:id="@+id/startS"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="stop"
-                android:id="@+id/stopS"/>
+
         </LinearLayout>
 
 

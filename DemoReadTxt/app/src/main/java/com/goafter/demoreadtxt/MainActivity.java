@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button tvHome, tvPre, tvNext;
     TextView tvDisplay;
     int next = 0;
+    String TAG = "===========";
+    BufferedReader br;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void readtxt() {
-        File file = new File(Environment.getExternalStorageDirectory().getPath()+"/a.txt");
+        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/a.txt");
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"gbk"));
-            String line ;
-            String result;
-            StringBuilder sb = new StringBuilder();
-            while (next < 10 & (line = br.readLine()) != null  ) {
-                sb.append(line+"\n");
-                next++;
-                Log.e("111111111", line);
-            }
-            Log.e("22222222", line);
-            tvDisplay.setText(sb.toString());
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "gbk"));
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -53,7 +46,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-      next = 0;
-        Log.e("================", "nextnextnext:  "+next);
+        loadPage();
+    }
+
+    private void loadPage() {
+        String line = null;
+        String result;
+        StringBuilder sb = new StringBuilder();
+        next = 0;
+        try {
+            while ((line = br.readLine()) != null & next < 10) {
+                sb.append(line + "\n");
+                next++;
+                Log.e("111111111", line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        //Log.e("22222222", line);
+        tvDisplay.setText(sb.toString());
     }
 }

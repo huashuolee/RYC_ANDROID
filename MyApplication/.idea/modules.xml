@@ -2,7 +2,23 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Browser/Browser.iml" filepath="$PROJECT_DIR$/Browser/Browser.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyApplication.iml" filepath="$PROJECT_DIR$/MyApplication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/actionbar/actionbar.iml" filepath="$PROJECT_DIR$/actionbar/actionbar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/andriodDream/andriodDream.iml" filepath="$PROJECT_DIR$/andriodDream/andriodDream.iml" />
+      <module fileurl="file://$PROJECT_DIR$/camTestActivity/camTestActivity.iml" filepath="$PROJECT_DIR$/camTestActivity/camTestActivity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/camera.huashuo/camera.huashuo.iml" filepath="$PROJECT_DIR$/camera.huashuo/camera.huashuo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/camera2.huashuo/camera2.huashuo.iml" filepath="$PROJECT_DIR$/camera2.huashuo/camera2.huashuo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/getmac/getmac.iml" filepath="$PROJECT_DIR$/getmac/getmac.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iReader/iReader.iml" filepath="$PROJECT_DIR$/iReader/iReader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/learning_bitmap/learning_bitmap.iml" filepath="$PROJECT_DIR$/learning_bitmap/learning_bitmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mytxt/mytxt.iml" filepath="$PROJECT_DIR$/mytxt/mytxt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mytxtreader/mytxtreader.iml" filepath="$PROJECT_DIR$/mytxtreader/mytxtreader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mytxttmp1/mytxttmp1.iml" filepath="$PROJECT_DIR$/mytxttmp1/mytxttmp1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/photoIntentActivity/photoIntentActivity.iml" filepath="$PROJECT_DIR$/photoIntentActivity/photoIntentActivity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/readtxt1/readtxt1.iml" filepath="$PROJECT_DIR$/readtxt1/readtxt1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/record/record.iml" filepath="$PROJECT_DIR$/record/record.iml" />
+      <module fileurl="file://$PROJECT_DIR$/settingdaemo/settingdaemo.iml" filepath="$PROJECT_DIR$/settingdaemo/settingdaemo.iml" />
     </modules>
   </component>
 </project>

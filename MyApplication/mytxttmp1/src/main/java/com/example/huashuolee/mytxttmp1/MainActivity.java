@@ -31,17 +31,7 @@ public class MainActivity extends ActionBarActivity {
         prevButton = (Button)findViewById(R.id.preButton);
         nextButton.setOnClickListener(new nextPage());
         prevButton.setOnClickListener(new prevPage());
-        Button startS = (Button)findViewById(R.id.startS);
-        Button stopS = (Button)findViewById(R.id.stopS);
-        startS.setOnClickListener(new start());
         loadBook();
-    }
-
-    protected class start implements View.OnClickListener{
-        @Override
-        public void onClick(View v) {
-
-        }
     }
 
     private void loadBook() {
@@ -63,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
             fisr.read(buf);
             Log.e("1111111111111",new String(buf));
             myText.setText(new String(buf));
-//  ÏÂÃæµÄ´úÂë£¬»áµ¼ÖÂ¶ªÊ§ÎÄ×Ö£¬ ²»ÖªµÀÎªÊ²Ã´
+//  ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ë£¬ï¿½áµ¼ï¿½Â¶ï¿½Ê§ï¿½ï¿½ï¿½Ö£ï¿½ ï¿½ï¿½Öªï¿½ï¿½ÎªÊ²Ã´
 /*            if (fisr.read(buf)==-1){
                  myText.setText("finished");
             }*/
