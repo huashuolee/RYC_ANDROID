@@ -54,8 +54,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String result;
         StringBuilder sb = new StringBuilder();
         next = 0;
+        char[] buf = new char[256];
         try {
-            while ((line = br.readLine()) != null & next < 10) {
+            br.read(buf);
+            result = new String(buf);
+            tvDisplay.setText(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+   /*     try {
+            while ((line = br.readLine()) != null) {
                 sb.append(line + "\n");
                 next++;
                 Log.e("111111111", line);
@@ -64,7 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
 
         }
+
+
         //Log.e("22222222", line);
-        tvDisplay.setText(sb.toString());
+        tvDisplay.setText(sb.toString());*/
     }
 }
