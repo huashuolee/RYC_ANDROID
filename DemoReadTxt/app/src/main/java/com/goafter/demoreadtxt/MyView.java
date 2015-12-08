@@ -9,12 +9,12 @@ import android.view.View;
 /**
  * Created by huashuolee on 2015/12/8.
  */
-public class MyCanvas extends View {
-    public MyCanvas(Context context, AttributeSet attrs) {
+public class MyView extends View {
+    public MyView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MyCanvas(Context context) {
+    public MyView(Context context) {
         super(context);
     }
 
@@ -22,6 +22,7 @@ public class MyCanvas extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Paint paint = new Paint();
+        paint.setTextSize(30);
         canvas.drawText("this is canvas", 100,100,paint);
     }
 }
