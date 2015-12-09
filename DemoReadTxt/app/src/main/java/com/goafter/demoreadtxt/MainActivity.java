@@ -4,6 +4,8 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -16,12 +18,14 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     StringBuilder sb = new StringBuilder();
     MyView myView;
     String TAG = "=============";
     BufferedReader br;
     TextView tvDisplay;
+    Button btnPre,btnNext;
+
 
 
     @Override
@@ -29,13 +33,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tvDisplay = (TextView) findViewById(R.id.tvDisplay);
+        btnPre = (Button) findViewById(R.id.btnPre);
+        btnNext = (Button) findViewById(R.id.btnNext);
+        btnNext.setOnClickListener(this);
         //myView = (MyView) findViewById(R.id.myView);
         loadBook();
         loadPage();
     }
 
     private void loadPage() {
-        char[] buf = new char[3];
+        char[] buf = new char[1024];
         try {
             br.read(buf);
             String result = new String(buf);
@@ -62,4 +69,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnNext:
+                loadPage();
+                Log.e(TAG, "111111111111");
+                break;
+            case R.id.btnPre:
+                break;
+        }
+    }
 }
