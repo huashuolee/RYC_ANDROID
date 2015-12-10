@@ -24,8 +24,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String TAG = "=============";
     BufferedReader br;
     TextView tvDisplay;
-    Button btnPre,btnNext;
-
+    Button btnPre, btnNext;
+    int pageSize = 400;
+    int startNum = 0;
+    int endNum = startNum + pageSize;
 
 
     @Override
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnPre = (Button) findViewById(R.id.btnPre);
         btnNext = (Button) findViewById(R.id.btnNext);
         btnNext.setOnClickListener(this);
+        btnPre.setOnClickListener(this);
         //myView = (MyView) findViewById(R.id.myView);
         loadBook();
         loadPage();
@@ -43,16 +46,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void loadPage() {
         char[] buf = new char[1024];
-        try {
+
+        String str = sb.substring(startNum, startNum + pageSize);
+        str.trim();
+        Log.e(TAG, str.length() + "");
+        tvDisplay.setTextSize(15);
+        tvDisplay.setText(str);
+        /*try {
             br.read(buf);
             String result = new String(buf);
-            Log.e(TAG, result);
-            tvDisplay.setTextSize(15);
-            tvDisplay.setText(result);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
+    }
+
+    private void prepage() {
+        String str = sb.substring(startNum - pageSize, startNum);
+        Log.e(TAG, str.length() + "");
+        tvDisplay.setText(str);
     }
 
     private void loadBook() {
@@ -60,10 +72,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         File file = new File(path);
         try {
             br = new BufferedReader(new FileReader(file));
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"gbk"));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "gbk"));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                if (!line.equals("")) {
+                    sb.append(line + "\n");
+                }
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -71,12 +91,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnNext:
                 loadPage();
-                Log.e(TAG, "111111111111");
+                startNum = startNum + pageSize;
                 break;
             case R.id.btnPre:
+                startNum = startNum - pageSize;
+                prepage();
                 break;
         }
     }
