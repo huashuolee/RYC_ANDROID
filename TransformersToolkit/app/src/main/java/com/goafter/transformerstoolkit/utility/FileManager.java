@@ -37,9 +37,8 @@ public class FileManager extends ListFragment implements View.OnClickListener {
 
     private static final String TAG = "=============";
     private static final MyLogUtil logUtil = new MyLogUtil();
-
     private TextView tvFilePath;
-    String ABspath;
+    String ABspath = SDPATH;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,7 +105,7 @@ public class FileManager extends ListFragment implements View.OnClickListener {
     public void onListItemClick(ListView l, View v, int position, long id) {
         ABspath = paths.get(position);
         tvFilePath.setText(ABspath);
-        logUtil.e(TAG + "aaadafdsfa", ABspath);
+        logUtil.e(TAG, ABspath);
         File file = new File(ABspath);
         // 文件存在并可读
         if (file.exists() && file.canRead()) {
@@ -148,7 +147,6 @@ public class FileManager extends ListFragment implements View.OnClickListener {
                     String path1 = getLastPath(ABspath);
                     ABspath = path1;
                     showFileDir(path1);
-                    logUtil.e(TAG, path1);
                     tvFilePath.setText(path1);
                 }
 
@@ -159,9 +157,10 @@ public class FileManager extends ListFragment implements View.OnClickListener {
     private String getLastPath(String path) {
         String[] str = path.split("/");
         String str1 = "";
-        for (int i = 0; i < str.length - 1; i++) {
+        for (int i = 1; i < str.length - 1; i++) {
             str1 += "/" + str[i];
         }
+
         return str1;
 
     }
