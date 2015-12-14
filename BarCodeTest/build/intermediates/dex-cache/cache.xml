@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\work\code\RYC_ANDROID\BarCodeTest\app\libs\zxing.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e88c14e6e7daa0fa65172a62b54ee6a16ff4162d">
+        <dex dex="D:\work\code\RYC_ANDROID\BarCodeTest\app\build\intermediates\pre-dexed\debug\zxing-4d5798c002928d4a9e357c5d4fbe0bca4119f53e.jar" />
+    </item>
+
+</items>
