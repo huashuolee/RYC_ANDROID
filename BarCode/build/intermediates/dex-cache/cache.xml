@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\work\code\RYC_ANDROID\BarCode\app\libs\core-3.2.1-SNAPSHOT.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="ef66b36f87ad98bd7d8481ec52590bf0d091e7c4">
+        <dex dex="D:\work\code\RYC_ANDROID\BarCode\app\build\intermediates\pre-dexed\debug\core-3.2.1-SNAPSHOT-24c0c8e3df415030d06ec368ea8d393a1946de55.jar" />
+    </item>
+
+</items>
