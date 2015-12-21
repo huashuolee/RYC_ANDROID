@@ -6,6 +6,10 @@
     <string name="dict_title">在线有道词典</string>
     <string name="under_developing">使劲开发ing，稍后开放</string>
     <string name="no_permission">没有权限</string>
+    <string name="quering">查询ing...</string>
+    <string name="msgrootFolder">已经是根目录了</string>
+    <string name="rootFolder">SD卡根目录</string>
+
     <string-array name="planets_array">
         <item>工具包：</item>
         <item>有道在线词典</item> <!--1-->

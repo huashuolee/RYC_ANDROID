@@ -11,7 +11,7 @@ public interface UrlConst {
 
     //Taobao 号码归属地
     //百度天气API
-    public static final String WEATHER = "http://apis.baidu.com/heweather/weather/free?";
+    public static final String WEATHER = "http://apis.baidu.com/heweather/weather/free?city=";
     public static final String BAIDU_APIKEY = "d39472822dbd3e7e4cd9ed6337999b34";
 
     //和风API：

@@ -139,28 +139,30 @@ public class FileManager extends ListFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btnFileHome:
                 showFileDir(SDPATH);
-                tvFilePath.setText("SD卡根目录");
+                tvFilePath.setText(getActivity().getString(R.string.rootFolder));
                 break;
 
             case R.id.btnFileUp:
-                if (ABspath != SDPATH) {
+                logUtil.e(TAG,ABspath + "  " + SDPATH);
+                if (!ABspath.equals(SDPATH)) {
                     String path1 = getLastPath(ABspath);
                     ABspath = path1;
                     showFileDir(path1);
                     tvFilePath.setText(path1);
+                }else {
+                    Toast.makeText(getActivity(), getActivity().getString(R.string.msgrootFolder), Toast.LENGTH_SHORT).show();
+                    tvFilePath.setText(getActivity().getString(R.string.rootFolder));
                 }
-
+                logUtil.e(TAG,ABspath + "  " + SDPATH);
                 break;
         }
     }
 
     private String getLastPath(String path) {
-        String[] str = path.split("/");
         String str1 = "";
-        for (int i = 1; i < str.length - 1; i++) {
-            str1 += "/" + str[i];
-        }
+        str1 = new File(path).getParent();
 
+        logUtil.e(TAG, str1);
         return str1;
 
     }

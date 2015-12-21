@@ -46,6 +46,16 @@ public class TBarCode extends Fragment {
         qrImgImageView = (ImageView) view.findViewById(R.id.iv_qr_image);
 
         Button scanBarCodeButton = (Button) view.findViewById(R.id.btn_scan_barcode);
+        scanBarCodeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = "market://details?id=" + "com.google.zxing.client.android";
+                Intent localIntent = new Intent("android.intent.action.VIEW");
+                localIntent.setData(Uri.parse(str));
+                startActivity(localIntent);
+
+            }
+        });
 
 
         Button generateQRCodeButton = (Button) view.findViewById(R.id.btn_add_qrcode);

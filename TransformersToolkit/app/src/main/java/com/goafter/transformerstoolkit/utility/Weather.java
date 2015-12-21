@@ -1,12 +1,9 @@
 package com.goafter.transformerstoolkit.utility;
 
-import android.app.ActionBar;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.Environment;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +23,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -42,7 +34,7 @@ import java.util.ArrayList;
 
 
 public class Weather extends Fragment {
-    StringBuilder builder, builderaqi;
+    StringBuilder  builderaqi;
     TextView tvResult, tvAQI;
     TextView tvLocation;
     LocationClient mLocationClient;
@@ -75,7 +67,7 @@ public class Weather extends Fragment {
         btnGetData.setOnClickListener(new GetWeatherData());
         btnGetData.setVisibility(View.GONE);
         tvLocation = (TextView) view.findViewById(R.id.tvLocation);
-        tvLocation.setText("查询ing　");
+        tvLocation.setText(getActivity().getString(R.string.quering));
         //获取当前位置, 以及天气
         getLocation();
         return view;
@@ -148,19 +140,13 @@ public class Weather extends Fragment {
         sb.append(locAddrStr);
 
         if (locAddrStr != null) {
-            String sublocDistrict = locDistrict.substring(0, locDistrict.indexOf("区"));
             String city = locCity.substring(0, locCity.indexOf("市"));
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                sublocDistrict = swCharset(sublocDistrict);
                 city = swCharset(city);
             }
-            //
-            String url = UrlConst.WEATHER + "city=" + sublocDistrict;
-            String url1 = UrlConst.WEATHER + "city=" + city;
-            logUtil.e(TAG, url1);
-            update(url);
+            String url = UrlConst.WEATHER  + city;
             tvLocation.setText(locDescribe);
-            updateaqi(url1);
+            updateaqi(url);
 
         } else {
             Toast.makeText(getActivity(), "刷新失败，请重试", Toast.LENGTH_LONG);
@@ -181,85 +167,7 @@ public class Weather extends Fragment {
         }
     }
 
-    private void update(String url) {
-        new AsyncTask<String, Void, StringBuilder>() {
-            protected StringBuilder doInBackground(String... params) {
 
-                try {
-                    URL url = new URL(params[0]);
-                    URLConnection connection = url.openConnection();
-                    connection.setRequestProperty("apikey", UrlConst.BAIDU_APIKEY);
-                    InputStream is = connection.getInputStream();
-                    InputStreamReader isr = new InputStreamReader(is, "utf-8");
-                    BufferedReader br = new BufferedReader(isr);
-                    builder = new StringBuilder();
-                    String line = null;
-
-                    while ((line = br.readLine()) != null) {
-                        builder.append(line);
-                    }
-                    File file = new File(Environment.getExternalStorageDirectory().getPath() + "/weather.txt");
-                    FileOutputStream fos = new FileOutputStream(file);
-                    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-                    bw.write(builder.toString());
-                    bw.close();
-                    fos.close();
-                    return builder;
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                return builder;
-            }
-
-            @Override
-            protected void onPostExecute(StringBuilder stringBuilder) {
-                super.onPostExecute(stringBuilder);
-/*
-                Log.e("111111", builder.toString());
-                try {
-                    JSONObject  dataJson=new JSONObject(builder.toString()); //获得 dataJSON
-                    JSONArray allDataJSONArray =dataJson.getJSONArray("HeWeather data service 3.0"); //  先获得JSONArray
-                    JSONObject allDataJSONObject = allDataJSONArray.getJSONObject(0); //从JSONArray 中 获得JSONObject
-                    JSONObject now = allDataJSONObject.getJSONObject("now"); //从JSONObject 中获取想要的OBJECT.
-                    tvResult.setText(now.getJSONObject("wind").getString("dir"));
-*/
-
-                try {
-
-                    JSONObject jsonObject = new JSONObject(builder.toString());
-                    JSONArray array = jsonObject.getJSONArray("HeWeather data service 3.0");
-                    JSONObject allData = array.getJSONObject(0);
-                    JSONObject now = allData.getJSONObject("now");
-                    String tmp = now.getString("tmp");
-                    String txt = now.getJSONObject("cond").getString("txt");
-                    String direction_wind = now.getJSONObject("wind").getString("dir");
-                    String sc = now.getJSONObject("wind").getString("sc");
-                    String sug_drsg = allData.getJSONObject("suggestion").getJSONObject("drsg").getString("txt");
-                    String[] display = new String[]{"城市：" + locCity, "温度：" + tmp + "摄氏度", txt, direction_wind + ": " + sc, sug_drsg};
-                    String result = "";
-                    for (String i : display) {
-                        result += i + "\r\n";
-
-                    }
-                    tvResult.setText(result);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            protected void onPreExecute() {
-                Toast.makeText(getActivity(), "玩命查询ing", Toast.LENGTH_SHORT).show();
-                super.onPreExecute();
-            }
-        }.execute(url);
-
-    }
 
     private void updateaqi(String url) {
         new AsyncTask<String, Void, StringBuilder>() {
@@ -297,6 +205,22 @@ public class Weather extends Fragment {
                     JSONObject jsonObject = new JSONObject(builderaqi.toString());
                     JSONArray array = jsonObject.getJSONArray("HeWeather data service 3.0");
                     JSONObject allData = array.getJSONObject(0);
+
+                    //get the current weather data
+                    JSONObject now = allData.getJSONObject("now");
+                    String tmp = now.getString("tmp");
+                    String txt = now.getJSONObject("cond").getString("txt");
+                    String direction_wind = now.getJSONObject("wind").getString("dir");
+                    String sc = now.getJSONObject("wind").getString("sc");
+                    String sug_drsg = allData.getJSONObject("suggestion").getJSONObject("drsg").getString("txt");
+                    String[] display1 = new String[]{"城市：" + locCity, "温度：" + tmp + "摄氏度", txt, direction_wind + ": " + sc, sug_drsg};
+                    String result2 = "";
+                    for (String i : display1) {
+                        result2 += i + "\r\n";
+
+                    }
+                    tvResult.setText(result2);
+                    // get the AQI Data
                     JSONObject aqi = allData.getJSONObject("aqi").getJSONObject("city");
                     String qlty = aqi.getString("qlty");
                     String pm10 = aqi.getString("pm10");
@@ -310,6 +234,7 @@ public class Weather extends Fragment {
                     tvAQI.setText(result);
                     tvAQI.setTextSize(30);
 
+                    //get the daily forecast data , 4 days
                     JSONArray daily_forecast = allData.getJSONArray("daily_forecast");
                     for (int i = 1; i < 5; i++) {
                         JSONObject JO = daily_forecast.getJSONObject(i);
