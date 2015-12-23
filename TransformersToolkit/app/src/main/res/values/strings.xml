@@ -10,6 +10,13 @@
     <string name="msgrootFolder">已经是根目录了</string>
     <string name="rootFolder">SD卡根目录</string>
 
+    <string name="scanbarcode">Scan Barcode</string>
+    <string name="cancel">Cancel</string>
+    <string name="opencamera">Open Camera</string>
+    <string name="scan_result">Scan result:</string>
+    <string name="input_text">Input the text:</string>
+    <string name="generate_qrcode">Generate Qrcode:</string>
+
     <string-array name="planets_array">
         <item>工具包：</item>
         <item>有道在线词典</item> <!--1-->

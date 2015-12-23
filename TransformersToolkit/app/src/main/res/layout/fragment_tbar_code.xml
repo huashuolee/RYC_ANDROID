@@ -10,10 +10,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Open camera" />
+        android:text="@string/opencamera" />
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -23,14 +23,15 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textSize="18sp"
-            android:text="Scan result：" />
+            android:text="@string/scan_result" />
 
         <TextView
             android:id="@+id/tv_scan_result"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:textSize="18sp"
             android:textColor="@android:color/black"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:autoLink="all"/>
     </LinearLayout>
 
     <EditText
@@ -38,19 +39,20 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:hint="Input the text"/>
+        android:hint="@string/input_text"/>
 
     <Button
         android:id="@+id/btn_add_qrcode"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Generate QRcode" />
+        android:text="@string/generate_qrcode" />
 
     <ImageView
         android:id="@+id/iv_qr_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:contentDescription="@string/generate_qrcode"/>
 
 </LinearLayout>
