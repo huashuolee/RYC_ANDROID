@@ -3,7 +3,9 @@ package com.goafter.transformerstoolkit.utility;
 import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -115,7 +117,8 @@ public class FileManager extends ListFragment implements View.OnClickListener {
             } else {
                 //处理文件
                 //fileHandle(file);
-                Toast.makeText(getActivity(), "无法打开", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "无法打开", Toast.LENGTH_SHORT).show();
+                openFile(file);
             }
         }
         //没有权限
@@ -143,17 +146,17 @@ public class FileManager extends ListFragment implements View.OnClickListener {
                 break;
 
             case R.id.btnFileUp:
-                logUtil.e(TAG,ABspath + "  " + SDPATH);
+                logUtil.e(TAG, ABspath + "  " + SDPATH);
                 if (!ABspath.equals(SDPATH)) {
                     String path1 = getLastPath(ABspath);
                     ABspath = path1;
                     showFileDir(path1);
                     tvFilePath.setText(path1);
-                }else {
+                } else {
                     Toast.makeText(getActivity(), getActivity().getString(R.string.msgrootFolder), Toast.LENGTH_SHORT).show();
                     tvFilePath.setText(getActivity().getString(R.string.rootFolder));
                 }
-                logUtil.e(TAG,ABspath + "  " + SDPATH);
+                logUtil.e(TAG, ABspath + "  " + SDPATH);
                 break;
         }
     }
@@ -165,5 +168,39 @@ public class FileManager extends ListFragment implements View.OnClickListener {
         logUtil.e(TAG, str1);
         return str1;
 
+    }
+
+
+    private String getMIMEType(File file) {
+        String type = "*/*";
+        String fileName = file.getName();
+        int dotIndex = fileName.indexOf('.');
+        if (dotIndex < 0) {
+            return type;
+        }
+        String end = fileName.substring(dotIndex, fileName.length()).toLowerCase();
+        if (end == "") {
+            return type;
+        }
+        for (int i = 0; i < UrlConst.MIME_MapTable.length; i++) {
+            if (end == UrlConst.MIME_MapTable[i][0]) {
+                type = UrlConst.MIME_MapTable[i][1];
+            }
+        }
+        return type;
+    }
+
+    private void openFile(File file) {
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction(Intent.ACTION_VIEW);
+        String type = getMIMEType(file);
+        intent.setDataAndType(Uri.fromFile(file), type);
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "未知类型，不能打开", Toast.LENGTH_SHORT).show();
+
+        }
     }
 }
