@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DemoPing</string>
+    <string name ="pinghint">pls input the ip address</string>
+</resources>
