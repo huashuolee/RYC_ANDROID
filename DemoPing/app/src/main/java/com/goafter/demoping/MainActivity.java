@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnStart;
+    Button btnStart,btnClear;
     String url;
     EditText etUrl;
     TextView tvDisplayResult;
@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnStart = (Button) findViewById(R.id.btnStart);
+        btnClear = (Button) findViewById(R.id.btnClear);
         btnStart.setOnClickListener(new ClickButton());
+        btnClear.setOnClickListener(new ClickButton());
         etUrl = (EditText) findViewById(R.id.etUrl);
-        url = etUrl.getText().toString();
-        Log.e("11111111", url);
         tvDisplayResult = (TextView) findViewById(R.id.tvDisplayResult);
 
 
@@ -39,8 +39,21 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
+            switch (v.getId()) {
+                case R.id.btnStart:
+                    url = etUrl.getText().toString();
+                    tvDisplayResult.setText("START......");
+                    new Update().execute(url);
+                    break;
+                case R.id.btnClear:
+                    tvDisplayResult.setText("");
+                    break;
+                default:
+                    break;
+
+            }
             //startCmd();
-            new Update().execute(url);
+
         }
     }
 
@@ -49,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            String[] cmd = new String[]{"ping","-c","4","127.0.0.1"};
+            String[] cmd = new String[]{"ping", "-c", "4", params[0]};
             StringBuffer buffer = new StringBuffer();
 
             try {
@@ -58,19 +71,20 @@ public class MainActivity extends AppCompatActivity {
                         .redirectErrorStream(true)
                         .start();
                 int status = p.waitFor();
-                Log.e("status code: ", status+"");
+                Log.e("status code: ", status + "");
                 InputStream is = p.getInputStream();
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String line;
-                String result = "";
                 while ((line = br.readLine()) != null) {
-
-                    //Log.e("Result: ", line);
                     buffer.append(line);
                     buffer.append("\n");
+                    publishProgress(buffer.toString());
+                    Thread.sleep(1000);
+
 
                 }
                 return buffer.toString();
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -85,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             tvDisplayResult.setText(s);
 
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            tvDisplayResult.setText(values[0]);
         }
     }
 
