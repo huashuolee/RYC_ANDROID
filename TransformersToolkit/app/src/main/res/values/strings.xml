@@ -19,17 +19,26 @@
 
     <string-array name="planets_array">
         <item>工具包：</item>
-        <item>有道在线词典</item> <!--1-->
-        <item>文件管理</item><!--2-->
-        <item>天气预报</item><!--3-->
-        <item>手电筒</item><!--4-->
-        <item>二维码扫一扫</item><!--5-->
-        <item>视频播放</item><!--6-->
-        <item>快速拨打电话</item><!--7-->
-        <item>我的周边</item><!--8-->
-        <item>更多...</item><!--9-->
+        <item>有道在线词典</item>
+        <!--1-->
+        <item>文件管理</item>
+        <!--2-->
+        <item>天气预报</item>
+        <!--3-->
+        <item>手电筒</item>
+        <!--4-->
+        <item>二维码扫一扫</item>
+        <!--5-->
+        <item>视频播放</item>
+        <!--6-->
+        <item>快速拨打电话</item>
+        <!--7-->
+        <item>更多功能</item>
+        <!--8-->
+        <item>关于</item>
+        <!--9-->
     </string-array>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

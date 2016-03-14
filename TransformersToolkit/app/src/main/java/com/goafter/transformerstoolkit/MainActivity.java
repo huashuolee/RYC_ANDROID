@@ -65,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 7:
                     fragment = new MeCall();
+                    break;
+                case 8:
+                    fragment = new MoreF();
+                    break;
+                case 9:
+                    fragment = new AboutMe();
+                    break;
                 default:
                     break;
 
