@@ -4,6 +4,7 @@ local.properties
 
 #Gradle files:
 **/.gradle/
+**/gradle/
 **/build/
 ################
 
