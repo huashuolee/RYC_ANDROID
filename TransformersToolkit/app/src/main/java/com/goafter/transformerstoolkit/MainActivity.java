@@ -17,6 +17,8 @@ import android.text.Html;
 
 import com.goafter.transformerstoolkit.utility.*;
 
+import java.util.TimeZone;
+
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -35,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
         //动态插入fragment
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
+        TimeZone tz = TimeZone.getDefault();
+        String s = "TimeZone   "+tz.getDisplayName(false, TimeZone.SHORT)+" Timezon id :: " +tz.getID();
+        Log.e("时间，时区，", s);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
