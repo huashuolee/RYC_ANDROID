@@ -1,7 +1,6 @@
 package com.goafter.com.getlog;
 
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -126,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
 
             //String[] cmd = new String[]{"ls",Environment.getExternalStorageDirectory().getAbsolutePath()};
-            String[] cmd = new String[]{"logcat"};
+            String[] cmd = new String[]{"logcat","-v","time"};
     /*        try {
                 Process p = Runtime.getRuntime().exec(cmd);
             } catch (IOException e) {
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 InputStream is = p.getInputStream();
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String line;
-                File logfile = new File("/sdcard/ap.log");
+                File logfile = new File("/sdcard/logs/ap.log");
                 BufferedWriter bw = new BufferedWriter(new FileWriter(logfile));
                 while ((line = br.readLine()) != null) {
                     bw.write(line);
